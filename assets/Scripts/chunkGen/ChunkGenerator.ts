@@ -58,12 +58,13 @@ export class ChunkGenerator extends cc.Component {
   private _maxDistance:number = 0;
   private screenH:number = 0;
   private screenW:number = 0;
+  private offset:cc.Vec2 = cc.Vec2.ZERO;
 
   start () {
     this._canvas = cc.Canvas.instance;
     this.screenH = this._canvas.designResolution.height;
     this.screenW = this._canvas.designResolution.width;
-
+    this.offset = new cc.Vec2(this.screenW/2, this.screenH/2);
 
     this.chunksForPosition(0,0);
 
@@ -77,8 +78,8 @@ export class ChunkGenerator extends cc.Component {
     this._maxDistance = distance;
 
 
-    let idxX = x/this.screenW;
-    let idxY = y/this.screenH;
+    let idxX = (x-this.offset.x)/this.screenW;
+    let idxY = (y-this.offset.y)/this.screenH;
 
     let activeChunks:string[] = [];
     for(let i = idxX-1; i<=idxX+1; ++i) {
@@ -121,8 +122,8 @@ export class ChunkGenerator extends cc.Component {
     let planet = node.getComponent(Planet);
     let orbitCenter = new cc.Vec2();
 
-    orbitCenter.x = this.randRange(this.screenW*x, this.screenW*(x+1));
-    orbitCenter.y = this.randRange(this.screenH*y, this.screenH*(y+1));
+    orbitCenter.x = this.randRange(this.screenW*x, this.screenW*(x+1)) - this.offset.x;
+    orbitCenter.y = this.randRange(this.screenH*y, this.screenH*(y+1)) - this.offset.y;
     
     planet.orbitCenter = orbitCenter;
 
@@ -184,8 +185,8 @@ export class ChunkGenerator extends cc.Component {
     let planet = node.getComponent(Planet);
     let orbitCenter = new cc.Vec2();
 
-    orbitCenter.x = this.randRange(this.screenW*x, this.screenW*(x+1));
-    orbitCenter.y = this.randRange(this.screenH*y, this.screenH*(y+1));
+    orbitCenter.x = this.randRange(this.screenW*x, this.screenW*(x+1)) - this.offset.x;
+    orbitCenter.y = this.randRange(this.screenH*y, this.screenH*(y+1)) - this.offset.y;
     
     planet.orbitCenter = orbitCenter;
 

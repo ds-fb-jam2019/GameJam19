@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "c72b7e47-8f76-4771-b292-fb0a72fe40aa",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "quadrado-console_quasebranco": {
+      "ver": "1.0.3",
+      "uuid": "0dc94736-3348-46d9-bb95-28817c0c343d",
+      "rawTextureUuid": "c72b7e47-8f76-4771-b292-fb0a72fe40aa",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 80,
+      "height": 80,
+      "rawWidth": 80,
+      "rawHeight": 80,
+      "borderTop": 4,
+      "borderBottom": 4,
+      "borderLeft": 4,
+      "borderRight": 4,
+      "subMetas": {}
+    }
+  }
+}

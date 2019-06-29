@@ -9,12 +9,24 @@ export default class MenuControl extends cc.Component {
     @property(cc.Node)
     public ship: cc.Node = null;
 
+    @property(cc.Label)
+    public status: cc.Label;
+
+    @property(cc.Label)
+    public planetas: cc.Label;
+
+    @property(cc.Label)
+    public galaxias: cc.Label;
+
+    @property(cc.Label)
+    public distancia: cc.Label;
+
     planetCounter: number = 0;
     travelingDistance: number = 1;
     reset: number = 0;
     travelingSpeed: number = 10;
     maxPlanets: number = 10;
-    traveling: boolean = false;
+    traveling: boolean = true;
     planetList: cc.Node[] = [];
 
     // LIFE-CYCLE CALLBACKS:
@@ -22,12 +34,17 @@ export default class MenuControl extends cc.Component {
     // onLoad () {}
 
     start () {
+    	this.setStatus("PARADO");
+    	this.setPlanetas(14);
+    	this.setGalaxias(5);
+    	this.setDistancia(378);
     }
 
     update (dt) {
-    	if( this.traveling )
-    	this.travelingDistance += dt*this.travelingSpeed;
-    	this.moveShip(dt);
+    	if( this.traveling ) {
+	    	this.travelingDistance += dt*this.travelingSpeed;
+	    	this.moveShip();
+    	}
     }
 
     clickButton() {
@@ -81,5 +98,21 @@ export default class MenuControl extends cc.Component {
     	let x = this.travelingDistance;
 
     	this.ship.position = new cc.Vec2(x,0);
+    }
+
+    setStatus(s) {
+    	this.status.string = s+"...";
+    }
+
+    setPlanetas(s) {
+    	this.planetas.string = "Planetas x "+s;
+    }
+
+    setGalaxias(s) {
+    	this.galaxias.string = "Galaxias x "+s;
+    }
+
+    setDistancia(s) {
+    	this.distancia.string = "Distância x"+s;
     }
 }

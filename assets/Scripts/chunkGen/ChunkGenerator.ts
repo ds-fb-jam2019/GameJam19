@@ -9,32 +9,16 @@
 //  - [English] http://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
 
 const {ccclass, property} = cc._decorator;
+import { Planet } from './../Planet';
 
 @ccclass
-export class Planet extends cc.Component {
+export class ChunkGenerator extends cc.Component {
 
-    @property(cc.Label)
-    label: cc.Label = null;
+  public planets:Planet[];
 
-    @property
-    text: string = 'hello';
+  start () {
 
+  }
 
-    @property
-    radius: number = 0;
-    @property
-    mass: number = 0;
-
-    @property
-    position: cc.Vec2;
-
-    // LIFE-CYCLE CALLBACKS:
-
-    // onLoad () {}
-
-    start () {
-
-    }
-
-    // update (dt) {}
+  // update (dt) {}
 }

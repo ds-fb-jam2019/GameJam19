@@ -17,7 +17,7 @@ export class Planet extends cc.Component {
     label: cc.Label = null;
 
     @property
-    text: string = 'hello';
+    text: string = 'hi';
 
 
     @property

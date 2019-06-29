@@ -1,14 +1,13 @@
 {
-  "ver": "2.3.0",
+  "ver": "2.2.0",
   "uuid": "bd271181-6f37-4e2c-8d7e-75720fcc97f6",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
   "premultiplyAlpha": false,
-  "platformSettings": {},
   "subMetas": {
     "planeta1": {
-      "ver": "1.0.4",
+      "ver": "1.0.3",
       "uuid": "e441272b-a9b6-4287-915e-723f025eb0d3",
       "rawTextureUuid": "bd271181-6f37-4e2c-8d7e-75720fcc97f6",
       "trimType": "auto",

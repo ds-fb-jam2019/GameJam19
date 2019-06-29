@@ -1,14 +1,13 @@
 {
-  "ver": "2.3.0",
+  "ver": "2.2.0",
   "uuid": "90b71c82-f20b-4aca-807c-9455c02fae32",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
   "premultiplyAlpha": false,
-  "platformSettings": {},
   "subMetas": {
     "ShipStub": {
-      "ver": "1.0.4",
+      "ver": "1.0.3",
       "uuid": "0ffa2274-5222-4c3a-a2e9-057017f9ea48",
       "rawTextureUuid": "90b71c82-f20b-4aca-807c-9455c02fae32",
       "trimType": "auto",

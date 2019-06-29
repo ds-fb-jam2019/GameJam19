@@ -9,7 +9,7 @@
   "type": "Texture Packer",
   "subMetas": {
     "planeta1-1.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.3",
       "uuid": "a738ca61-230c-4abf-bd00-580d35528f1a",
       "rawTextureUuid": "bd271181-6f37-4e2c-8d7e-75720fcc97f6",
       "trimType": "auto",
@@ -31,7 +31,7 @@
       "subMetas": {}
     },
     "planeta1-2.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.3",
       "uuid": "ab4b7ef1-f112-41c0-9f79-0946798392f1",
       "rawTextureUuid": "bd271181-6f37-4e2c-8d7e-75720fcc97f6",
       "trimType": "auto",
@@ -53,7 +53,7 @@
       "subMetas": {}
     },
     "planeta1-3.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.3",
       "uuid": "b30f95e5-325d-4eca-b2ca-6348900513d8",
       "rawTextureUuid": "bd271181-6f37-4e2c-8d7e-75720fcc97f6",
       "trimType": "auto",
@@ -75,7 +75,7 @@
       "subMetas": {}
     },
     "planeta1-4.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.3",
       "uuid": "fbc9175e-b1c7-43a2-91e6-e94be4ad06dd",
       "rawTextureUuid": "bd271181-6f37-4e2c-8d7e-75720fcc97f6",
       "trimType": "auto",
@@ -97,7 +97,7 @@
       "subMetas": {}
     },
     "planeta1-5.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.3",
       "uuid": "28e43fd7-5238-4736-b54e-32befe477fa8",
       "rawTextureUuid": "bd271181-6f37-4e2c-8d7e-75720fcc97f6",
       "trimType": "auto",
@@ -119,7 +119,7 @@
       "subMetas": {}
     },
     "planeta1-6.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.3",
       "uuid": "68366ac8-8511-47c7-91c2-cf65372b4ec7",
       "rawTextureUuid": "bd271181-6f37-4e2c-8d7e-75720fcc97f6",
       "trimType": "auto",
@@ -141,7 +141,7 @@
       "subMetas": {}
     },
     "planeta1-7.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.3",
       "uuid": "da239011-4b76-4bf3-b033-d10081cc2b45",
       "rawTextureUuid": "bd271181-6f37-4e2c-8d7e-75720fcc97f6",
       "trimType": "auto",
@@ -163,7 +163,7 @@
       "subMetas": {}
     },
     "planeta1-8.png": {
-      "ver": "1.0.4",
+      "ver": "1.0.3",
       "uuid": "8f81f150-cade-4623-91a8-70ff32acc9f5",
       "rawTextureUuid": "bd271181-6f37-4e2c-8d7e-75720fcc97f6",
       "trimType": "auto",

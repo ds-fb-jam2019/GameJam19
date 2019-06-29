@@ -16,17 +16,22 @@ export class Planet extends cc.Component {
     @property(cc.Label)
     label: cc.Label = null;
 
-    @property
+    @property()
     text: string = 'hello';
 
 
-    @property
+    @property()
     radius: number = 0;
-    @property
+    @property()
     mass: number = 0;
 
-    @property
-    position: cc.Vec2;
+    // @property()
+    // position: cc.Vec2;
+
+
+    public orbitRadius:number;
+    public orbitCenter:cc.Vec2;
+
 
     // LIFE-CYCLE CALLBACKS:
 
@@ -36,5 +41,10 @@ export class Planet extends cc.Component {
 
     }
 
-    // update (dt) {}
+    update (dt) {
+
+      this.node.position.x = this.orbitCenter.x + (Math.cos(dt)*this.orbitRadius);
+      this.node.position.y = this.orbitCenter.y + (Math.sin(dt)*this.orbitRadius);
+
+    }
 }

@@ -11,26 +11,16 @@
 const {ccclass, property} = cc._decorator;
 
 @ccclass
-export class Planet extends cc.Component {
+export default class LaunchManager extends cc.Component {
 
     @property(cc.Label)
     label: cc.Label = null;
 
+    @property(cc.Vec2)
+    public touchStartPoint: cc.Vec2 = null;
 
-
-
-    @property()
-    radius: number = 0;
-    @property()
-    mass: number = 0;
-
-    // @property()
-    // position: cc.Vec2;
-
-
-    public orbitRadius:number;
-    public orbitCenter:cc.Vec2;
-
+    @property(cc.Vec2)
+    public touchLastPoint: cc.Vec2 = null;
 
     // LIFE-CYCLE CALLBACKS:
 
@@ -40,10 +30,5 @@ export class Planet extends cc.Component {
 
     }
 
-    update (dt) {
-
-      this.node.position.x = this.orbitCenter.x + (Math.cos(dt)*this.orbitRadius);
-      this.node.position.y = this.orbitCenter.y + (Math.sin(dt)*this.orbitRadius);
-
-    }
+    // update (dt) {}
 }

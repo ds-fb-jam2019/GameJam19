@@ -13,7 +13,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "Station",
+    "_name": "Planeta1",
     "_objFlags": 0,
     "_parent": null,
     "_children": [],
@@ -22,10 +22,13 @@
     "_components": [
       {
         "__id__": 2
+      },
+      {
+        "__id__": 3
       }
     ],
     "_prefab": {
-      "__id__": 3
+      "__id__": 4
     },
     "_opacity": 255,
     "_color": {
@@ -37,8 +40,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 100,
-      "height": 100
+      "width": 273,
+      "height": 291
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -53,8 +56,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 0.3,
-      "y": 0.3,
+      "x": 1,
+      "y": 1,
       "z": 1
     },
     "_quat": {
@@ -73,27 +76,52 @@
     "_id": ""
   },
   {
-    "__type__": "9d605fgVZJOKJE71Uo5hyBS",
+    "__type__": "cc.Sprite",
     "_name": "",
     "_objFlags": 0,
     "node": {
       "__id__": 1
     },
     "_enabled": true,
-    "planets": [
-      {
-        "__uuid__": "6b04ea1f-eada-4d40-8427-3f43f9bf1767"
-      }
-    ],
-    "radius": 0,
-    "mass": 0,
-    "orbitRadius": 90,
-    "orbitCenter": {
+    "_materials": [],
+    "_srcBlendFactor": 770,
+    "_dstBlendFactor": 771,
+    "_spriteFrame": {
+      "__uuid__": "0ffe236e-5274-4d48-8743-ba29e5a4f576"
+    },
+    "_type": 0,
+    "_sizeMode": 1,
+    "_fillType": 0,
+    "_fillCenter": {
       "__type__": "cc.Vec2",
       "x": 0,
       "y": 0
     },
-    "speedMod": 1,
+    "_fillStart": 0,
+    "_fillRange": 0,
+    "_isTrimmedMode": true,
+    "_atlas": {
+      "__uuid__": "a0ea9f61-9498-4b02-af7b-22c95aedf0f3"
+    },
+    "_id": ""
+  },
+  {
+    "__type__": "cc.Animation",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "_defaultClip": {
+      "__uuid__": "4869c803-2808-456e-b446-edc37a69baf2"
+    },
+    "_clips": [
+      {
+        "__uuid__": "4869c803-2808-456e-b446-edc37a69baf2"
+      }
+    ],
+    "playOnLoad": true,
     "_id": ""
   },
   {
@@ -102,9 +130,9 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "07213d33-1322-4fdb-ae22-5482eabc4da8"
+      "__uuid__": "654f34e3-dac1-4078-b252-f1a65b6210e6"
     },
-    "fileId": "69rUv6n35Iepg0f379A9qc",
+    "fileId": "76tTwozO1GRb4WVbZ8B/Yj",
     "sync": false
   }
 ]

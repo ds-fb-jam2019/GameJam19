@@ -15,11 +15,11 @@ import { Planet } from './../Planet';
 export class ChunkGenerator extends cc.Component {
 
   @property()
-  public _canvas:cc.Canvas;
+  public _canvas:cc.Canvas = null;
   @property(cc.Prefab)
-  public planetBase:cc.Prefab;
+  public planetBase:cc.Prefab = null;
   @property(cc.Prefab)
-  public stationBase:cc.Prefab;
+  public stationBase:cc.Prefab = null;
 
 
   /* Planet gen props */
@@ -45,15 +45,19 @@ export class ChunkGenerator extends cc.Component {
   /* End Planet gen props */
 
   @property()
-  public minStationsPerChunk:number = 0;
+  public stationSpawnChance:number = 0.3;
+
   @property()
-  public maxStationsPerChunk:number = 1;
+  public minStationOrbit:number = 50;
+  @property()
+  public maxStationOrbit:number = 250;
 
   public chunks:any = {};
+  public stations:any = {};
 
-  private _maxDistance:number;
-  private screenH:number;
-  private screenW:number;
+  private _maxDistance:number = 0;
+  private screenH:number = 0;
+  private screenW:number = 0;
 
   start () {
     this._canvas = cc.Canvas.instance;
@@ -83,6 +87,7 @@ export class ChunkGenerator extends cc.Component {
         activeChunks.push(chunkLabel);
         if (!this.chunks[chunkLabel]) {
           this.chunks[chunkLabel] = this.generatePlanets(i, j);
+          this.stations[chunkLabel] = this.generateStations(i, j);
         }
       }
     }
@@ -90,6 +95,7 @@ export class ChunkGenerator extends cc.Component {
     for(let atr in this.chunks) {
       if (activeChunks.indexOf(atr) == -1 ){
         this.removePlanets(this.chunks[atr] as Planet[]);
+        this.removePlanets(this.stations[atr] as Planet[]);
         delete this.chunks[atr];
       }
     }
@@ -102,17 +108,17 @@ export class ChunkGenerator extends cc.Component {
     let newPlanets = [];
 
     for (let i=0; i<planetsToCreate; ++i) {
-      newPlanets.push(this.createPlanet(idxX, idxY, i));
+      newPlanets.push(this.createPlanet(idxX, idxY));
     }
 
     return newPlanets;
   }
 
-  createPlanet(x:number, y:number, idx:number):Planet {
+  createPlanet(x:number, y:number):Planet {
 
     // let node = new cc.Node('Planet_'+x+"_"+y+"_"+idx);
     let node = cc.instantiate(this.planetBase);
-    let planet = node.addComponent(Planet);
+    let planet = node.getComponent(Planet);
     let orbitCenter = new cc.Vec2();
 
     orbitCenter.x = this.randRange(this.screenW*x, this.screenW*(x+1));
@@ -146,6 +152,51 @@ export class ChunkGenerator extends cc.Component {
       planets = planets.concat(this.chunks[chunk]);
     }
     return planets;
+  }
+
+  getAllStations():Planet[] {
+    let planets = [];
+    for(let chunk in this.stations) {
+      planets = planets.concat(this.chunks[chunk]);
+    }
+    return planets;
+  }
+
+  generateStations(idxX, idxY):Planet[] {
+    if (idxX==0 && idxY == 0) return [];
+    
+    let chance = Math.random();
+    let newStations = [];
+    
+
+    if (chance < this.stationSpawnChance) {
+      // console.log("Station created");
+      newStations.push(this.createStation(idxX, idxY));
+    }
+
+    return newStations;
+  }
+
+  createStation(x:number, y:number):Planet {
+
+    // let node = new cc.Node('Planet_'+x+"_"+y+"_"+idx);
+    let node = cc.instantiate(this.stationBase);
+    let planet = node.getComponent(Planet);
+    let orbitCenter = new cc.Vec2();
+
+    orbitCenter.x = this.randRange(this.screenW*x, this.screenW*(x+1));
+    orbitCenter.y = this.randRange(this.screenH*y, this.screenH*(y+1));
+    
+    planet.orbitCenter = orbitCenter;
+
+    planet.orbitRadius = this.randRange(this.minStationOrbit, this.maxStationOrbit);
+    planet.speedMod = 0.5;
+
+    node.scale = 1;
+
+    node.parent = this.node;
+
+    return planet;
   }
 
   randRange(min:number, max:number):number {

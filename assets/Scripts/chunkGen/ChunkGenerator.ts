@@ -15,9 +15,11 @@ import { Planet } from './../Planet';
 export class ChunkGenerator extends cc.Component {
 
   @property()
-  public canvas:cc.Canvas;
+  public _canvas:cc.Canvas;
   @property(cc.Prefab)
   public planetBase:cc.Prefab;
+  @property(cc.Prefab)
+  public stationBase:cc.Prefab;
 
 
   /* Planet gen props */
@@ -54,9 +56,9 @@ export class ChunkGenerator extends cc.Component {
   private screenW:number;
 
   start () {
-    this.canvas = cc.Canvas.instance;
-    this.screenH = this.canvas.designResolution.height;
-    this.screenW = this.canvas.designResolution.width;
+    this._canvas = cc.Canvas.instance;
+    this.screenH = this._canvas.designResolution.height;
+    this.screenW = this._canvas.designResolution.width;
 
 
     this.chunksForPosition(0,0);
@@ -122,9 +124,9 @@ export class ChunkGenerator extends cc.Component {
     planet.orbitRadius = this.randRange(this.minPlanetOrbit, this.maxPlanetOrbit);
     planet.speedMod = this.randRangef(this.minPlanetsSpeedMod, this.maxPlanetsSpeedMod);
 
-    console.log("Gerando raio: ", planet.radius);
+    // console.log("Gerando raio: ", planet.radius);
 
-    node.scale = (planet.radius/this.maxPlanetsRadius);
+    node.scale = (planet.radius/this.maxPlanetsRadius)/2.5;
 
     node.parent = this.node;
 
@@ -139,9 +141,12 @@ export class ChunkGenerator extends cc.Component {
   }
 
   getAllPlanets():Planet[] {
-    return []
+    let planets = [];
+    for(let chunk in this.chunks) {
+      planets = planets.concat(this.chunks[chunk]);
+    }
+    return planets;
   }
-
 
   randRange(min:number, max:number):number {
 

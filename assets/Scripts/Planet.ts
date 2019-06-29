@@ -13,8 +13,8 @@ const {ccclass, property} = cc._decorator;
 @ccclass
 export class Planet extends cc.Component {
 
-    @property(cc.Label)
-    label: cc.Label = null;
+    @property([cc.Prefab])
+    planets: cc.Prefab[] = [];
 
     @property()
     radius: number = 0;
@@ -29,24 +29,31 @@ export class Planet extends cc.Component {
     public orbitRadius:number = 90;
 
     @property(cc.Vec2)
-    public orbitCenter:cc.Vec2;
+    public orbitCenter:cc.Vec2 = new cc.Vec2(0,0);
 
     @property()
     public speedMod:number = 1;
 
 
     private time:number = 0;
+    private _direction:number = 1;
 
     // LIFE-CYCLE CALLBACKS:
 
     // onLoad () {}
 
     start () {
+      this._direction = (Math.random()<0.5)?-1:1;
+      let idx = Math.round(Math.random() * (this.planets.length-1));
+      let node = cc.instantiate( this.planets[idx] );
+      node.parent = this.node;
+      this.time += Math.random() * 20;
+      // console.log("start?", idx);
     }
 
     update (dt) {
       if (this.orbitCenter) {
-        this.time += dt*this.speedMod;
+        this.time += (dt * this._direction) * this.speedMod;
 
         let x = Math.round(this.orbitCenter.x + (Math.cos(this.time)*this.orbitRadius));
         let y = this.orbitCenter.y + (Math.sin(this.time)*this.orbitRadius);

@@ -30,8 +30,8 @@ export class LaunchManager extends cc.Component {
     // onLoad () {}
 
     start () {
-      console.log("LaunchManager start");
       this.node.on('touchstart', (event:cc.Event.EventTouch)=>{
+        console.log("touchstart");
         let touch = event.getTouches()[0];
         let location:cc.Vec2 = touch.getLocation();
         this.touchStartPoint = new cc.Vec2(location.x, location.y);

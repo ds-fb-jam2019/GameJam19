@@ -17,6 +17,9 @@ export class GameManager extends cc.Component {
    public _planetas: number;
    public _distancia: number;
 
+   // @property(cc.Scene)
+   // public mains: cc.Scene;
+
     // LIFE-CYCLE CALLBACKS:
 
     // onLoad () {}
@@ -30,6 +33,7 @@ export class GameManager extends cc.Component {
     startGame() {
       this.resetGameValues();
       cc.director.loadScene("Main");
+      console.log("button press");
     }
 
     gameOver() {

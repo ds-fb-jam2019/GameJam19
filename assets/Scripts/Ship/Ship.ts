@@ -17,11 +17,15 @@ import {Station} from '../Station'
 import {MenuControl} from '../Menu/MenuControl'
 import {GameManager} from '../Game Manager/GameManager';
 import {FriendManager} from '../FriendManager';
+import {Colonizador} from '../Colonizador';
 
 
 
 @ccclass
 export class Ship extends cc.Component {
+
+    @property(cc.Prefab)
+    public colonizador_base:cc.Prefab;
 
     @property(Planet)
     public planet:Planet;
@@ -300,6 +304,11 @@ private count:number = 0;
 
           if (!p.terraformed && distance < p.radius + (60 * (p.radius/100))) {
             p.terraformed = true;
+
+            let colonizador = cc.instantiate(this.colonizador_base).getComponent(Colonizador);
+            colonizador.node.parent = cc.find("Canvas/Colonizadores");
+            colonizador.target = p.node;
+
             this.menuControl.setPlanetas(++this._planetCount);
             this.playRand(this.terraform_sound);
           }

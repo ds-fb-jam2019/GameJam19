@@ -93,8 +93,7 @@ export class MenuControl extends cc.Component {
     		planet.destroy();
     	})
     	this.planetList = [];
-    	var ctx = this.node.getComponent(cc.Graphics);
-    	ctx.clear();
+    	this.graphics.clear();
 
     	this.planetCounter = 1;
     	this.travelingDistance = 15;

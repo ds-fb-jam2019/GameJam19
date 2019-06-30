@@ -99,6 +99,7 @@ export default class Ship extends cc.Component {
       let newPos = new cc.Vec2(x,y);
 
       this.node.position = new cc.Vec2(x,y);
+      this._chunks.chunksForPosition(x, y);
       // this._chunks.chunksForPosition(x,y);
 
       let diff = pos.sub(newPos);

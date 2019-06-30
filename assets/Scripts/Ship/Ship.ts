@@ -51,6 +51,8 @@ export class Ship extends cc.Component {
     public launch_sound:cc.AudioSource = null;
     @property(cc.AudioSource)
     public planet_orbit:cc.AudioSource = null;
+    @property(cc.AudioSource)
+    public fill_looping:cc.AudioSource = null;
     @property([cc.AudioSource])
     public terraform_sound:cc.AudioSource[] = [];
 
@@ -64,7 +66,7 @@ export class Ship extends cc.Component {
     private _lm:LaunchManager;
     private _canvas: cc.Canvas;
     private _launchPower: number;
-    private _launchAcc: cc.Vec2;
+    private _launchAcc: cc.Vec2 = cc.Vec2.ZERO;
     private _chunks:ChunkGenerator;
     private _time:number = 0;
     private orbitDirection:number = 0;
@@ -193,6 +195,7 @@ private count:number = 0;
     calcTravel(dt) {
       let atraction = cc.Vec2.ZERO;
       if (this.currentImuneTime > this.imuneTime ) {
+        this.imuneTime = 1;
         atraction = this.getPlanetsAtraction();
         this.gatherFuel(dt);
       } else {
@@ -200,7 +203,7 @@ private count:number = 0;
       }
       // Entrou numa orbita
       if (this.planet) {
-
+        this.fill_looping.stop();
         this._traveling = false;
         this.menuControl.traveling = false;
         this.menuControl.setStatus("ORBITANDO");
@@ -320,6 +323,7 @@ private count:number = 0;
 
     gatherFuel(dt) {
       let stationsP:Planet[] = this._chunks.getAllStations();
+      let gotFuel:boolean = false;
       stationsP.forEach((p) => {
         
         let dist = p.node.position.sub(this.node.position).mag();
@@ -333,13 +337,49 @@ private count:number = 0;
             fuelRecharge = station.fuel;
           }
 
+          if (fuelRecharge > 0) {
+            if (!this.fill_looping.isPlaying) { this.fill_looping.play(); }
+            gotFuel = true;
+          }
           station.updateFuel();
           station.fuel -= fuelRecharge;
           this.fuel += fuelRecharge;
+          if (this.fuel > this.maxFuel)
+            this.fuel = this.maxFuel;
           this.menuControl.setCombustivel(this.fuel/this.maxFuel);
         }
 
 
       });
+
+      if (!gotFuel) { 
+        this.fill_looping.stop();
+      }
+    }
+
+    throwAtBubble(bubblePos:cc.Vec2) {
+      this.currentImuneTime = 0;
+      this.imuneTime = 4;
+      if (this.planet) {
+        // this.planet.node.destroy();
+        this._orbiting = false;
+      }
+      this.launch_sound.play();
+      this.menuControl.traveling = true;
+      this.menuControl.setStatus("VIAJANDO");
+      this.planet = null;
+      this._lm.canLaunch = false;
+
+      let pos:cc.Vec2 = this.node.position;
+
+      let angle = Math.atan2(bubblePos.y, bubblePos.x);
+
+      this._launchAcc.x = Math.cos(angle)*1200;
+      this._launchAcc.y = Math.sin(angle)*1200;
+
+      this.fuel = this.maxFuel;
+      this.menuControl.setCombustivel(1);
+      this._traveling = true;
+
     }
 }

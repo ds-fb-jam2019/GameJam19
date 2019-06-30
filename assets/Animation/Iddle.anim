@@ -1,0 +1,138 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "Iddle",
+  "_objFlags": 0,
+  "_native": "",
+  "_duration": 1,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": "2",
+  "curveData": {
+    "paths": {
+      "Head": {
+        "props": {
+          "position": [
+            {
+              "frame": 0,
+              "value": [
+                0,
+                0
+              ],
+              "curve": "quadInOut"
+            },
+            {
+              "frame": 0.5,
+              "value": [
+                0,
+                -22
+              ],
+              "curve": "quadInOut"
+            },
+            {
+              "frame": 1,
+              "value": [
+                0,
+                0
+              ]
+            }
+          ],
+          "rotation": [
+            {
+              "frame": 0,
+              "value": 0,
+              "curve": "quartInOut"
+            },
+            {
+              "frame": 0.5,
+              "value": -17,
+              "curve": "quartInOut"
+            },
+            {
+              "frame": 1,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "LegR": {
+        "props": {
+          "position": []
+        }
+      },
+      "HandR": {
+        "props": {
+          "position": [
+            {
+              "frame": 0,
+              "value": [
+                -102,
+                19
+              ],
+              "curve": "quadInOut"
+            },
+            {
+              "frame": 0.5,
+              "value": [
+                -102,
+                -33.3
+              ],
+              "curve": "quadInOut"
+            },
+            {
+              "frame": 1,
+              "value": [
+                -102,
+                19
+              ]
+            }
+          ]
+        }
+      },
+      "HandL": {
+        "props": {
+          "position": [
+            {
+              "frame": 0,
+              "value": [
+                49,
+                -10
+              ],
+              "curve": "quadInOut"
+            },
+            {
+              "frame": 0.5,
+              "value": [
+                4.9,
+                -56.8
+              ],
+              "curve": "quadInOut"
+            },
+            {
+              "frame": 1,
+              "value": [
+                49,
+                -10
+              ]
+            }
+          ],
+          "rotation": [
+            {
+              "frame": 0,
+              "value": 0,
+              "curve": "linear"
+            },
+            {
+              "frame": 0.5,
+              "value": 24
+            },
+            {
+              "frame": 1,
+              "value": 0
+            }
+          ]
+        }
+      }
+    }
+  },
+  "events": []
+}

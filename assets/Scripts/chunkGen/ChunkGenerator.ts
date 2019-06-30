@@ -139,7 +139,7 @@ export class ChunkGenerator extends cc.Component {
     // console.log("Gerando raio: ", planet.radius);
 
     planet.fixScale();
-    node.parent = this.node;
+    node.parent = cc.find("Canvas/Planetas");
 
     return planet;
   }
@@ -211,7 +211,8 @@ export class ChunkGenerator extends cc.Component {
 
     node.scale = 1;
 
-    node.parent = this.node;
+    node.parent = cc.find("Canvas/Planetas");
+    // node.parent = this.node;
 
     return planet;
   }

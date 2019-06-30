@@ -21,8 +21,8 @@ import {FriendManager} from '../FriendManager';
 @ccclass
 export class Ship extends cc.Component {
 
-    @property()
-    public planet:Planet = null;
+    @property(Planet)
+    public planet:Planet;
 
     @property()
     public orbitRadiusOffset:number = 20;

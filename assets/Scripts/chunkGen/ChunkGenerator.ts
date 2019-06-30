@@ -20,6 +20,8 @@ export class ChunkGenerator extends cc.Component {
   public planetBase:cc.Prefab = null;
   @property(cc.Prefab)
   public stationBase:cc.Prefab = null;
+  @property(cc.Prefab)
+  public estrela:cc.Prefab = null;
   @property()
   public spawnRadius:number = 1;
 
@@ -56,6 +58,7 @@ export class ChunkGenerator extends cc.Component {
 
   public chunks:any = {};
   public stations:any = {};
+  public stars:any = {};
 
   private _maxDistance:number = 0;
   private screenH:number = 0;
@@ -92,6 +95,7 @@ export class ChunkGenerator extends cc.Component {
           // console.log("Gerando planetas para: ", chunkLabel);
           this.chunks[chunkLabel] = this.generatePlanets(i, j);
           this.stations[chunkLabel] = this.generateStations(i, j);
+          this.stars[chunkLabel] = this.generateStars(i, j);
         }
       }
     }
@@ -101,11 +105,55 @@ export class ChunkGenerator extends cc.Component {
         // console.log("removendo o chunk:"+atr);
         this.removePlanets(this.chunks[atr] as Planet[]);
         this.removePlanets(this.stations[atr] as Planet[]);
+        this.removeStars(this.stations[atr] as cc.Node[]);
         delete this.chunks[atr];
         delete this.stations[atr];
+        delete this.stars[atr];
       }
     }
 
+  }
+
+  generateStars(idxX, idxY) {
+
+    let container = cc.find("Canvas/Estrelas");
+
+    let bigs = this.randRange(2,4);
+    for (let i=0; i< bigs;i++) {
+      let estl = cc.instantiate(this.estrela);
+      let center:cc.Vec2 = new cc.Vec2();
+      center.x = this.randRangef(this.screenW*idxX, this.screenW*(idxX+1)) - this.offset.x;
+      center.y = this.randRangef(this.screenH*idxY, this.screenH*(idxY+1)) - this.offset.y;
+      estl.position = center;
+      estl.scale = this.randRangef(0.15, 0.2);
+      estl.parent = container;
+    } 
+
+    bigs = this.randRange(2,6);
+    for (let i=0; i< bigs;i++) {
+      let estl = cc.instantiate(this.estrela);
+      let center:cc.Vec2 = new cc.Vec2();
+      center.x = this.randRangef(this.screenW*idxX, this.screenW*(idxX+1)) - this.offset.x;
+      center.y = this.randRangef(this.screenH*idxY, this.screenH*(idxY+1)) - this.offset.y;
+      estl.position = center;
+      estl.scale = this.randRangef(0.05, 0.1);
+      estl.parent = container;
+    } 
+
+    bigs = this.randRange(1,6);
+    for (let i=0; i< bigs;i++) {
+      let estl = cc.instantiate(this.estrela);
+      let center:cc.Vec2 = new cc.Vec2();
+      center.x = this.randRangef(this.screenW*idxX, this.screenW*(idxX+1)) - this.offset.x;
+      center.y = this.randRangef(this.screenH*idxY, this.screenH*(idxY+1)) - this.offset.y;
+      estl.position = center;
+      estl.scale = this.randRangef(0.01, 0.04);
+      estl.parent = container;
+    } 
+
+  }
+  removeStars(list:cc.Node[]) {
+    list.forEach(n => n.destroy());
   }
 
   generatePlanets(idxX, idxY):Planet[] {

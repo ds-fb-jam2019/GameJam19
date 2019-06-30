@@ -33,21 +33,21 @@ export default class Estrela extends cc.Component {
       let sprite = this.getComponent(cc.Sprite);
       sprite.spriteFrame = this.estrelas[Math.round(Math.random()*(this.estrelas.length-1))];
       this.originalPos = this.node.position;
-      this.size = this.node.scale*30;
+      // this.size = this.node.scale*30;
     }
 
     update (dt) {
 
-      let vec = this.originalPos.sub(this.cam.position);
-      let force = vec.mag() * (this.size*this.size) / (900);
+      // let vec = this.originalPos.sub(this.cam.position);
+      // let force = vec.mag() * (this.size*this.size) / (900);
 
-      console.log("Forca cam",force);
-      let ang = Math.atan2(this.cam.position.y - this.originalPos.y, this.cam.position.x - this.originalPos.x) ;
+      // console.log("Forca cam",force);
+      // let ang = Math.atan2(this.cam.position.y - this.originalPos.y, this.cam.position.x - this.originalPos.x) ;
 
-      this.node.position = new cc.Vec2(
-        this.originalPos.x + Math.cos(ang) * force,
-        this.originalPos.y + Math.sin(ang) * force
-      );
+      // this.node.position = new cc.Vec2(
+      //   this.originalPos.x + Math.cos(ang) * force,
+      //   this.originalPos.y + Math.sin(ang) * force
+      // );
 
     }
 }

@@ -325,7 +325,9 @@
     "_enabled": true,
     "planet": null,
     "orbitRadiusOffset": 20,
-    "fuel": 100,
+    "fuelTransferRate": 25,
+    "fuel": 300,
+    "imuneTime": 1,
     "planetTest": [],
     "_id": "c0Ct7ZE/xKyq9wH0bk/qYn"
   },

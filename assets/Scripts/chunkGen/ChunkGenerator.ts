@@ -147,6 +147,9 @@ export class ChunkGenerator extends cc.Component {
   removePlanets(planets:Planet[]) {
     planets.forEach(
       (planet) => {
+        if(planet.orbitGfx !=null) {
+          planet.orbitGfx.node.destroy();
+        }
         planet.node.destroy();
       })
   }
@@ -171,7 +174,7 @@ export class ChunkGenerator extends cc.Component {
   getAllStations():Planet[] {
     let planets = [];
     for(let chunk in this.stations) {
-      planets = planets.concat(this.chunks[chunk]);
+      planets = planets.concat(this.stations[chunk]);
     }
     return planets;
   }

@@ -13,6 +13,7 @@ const {ccclass, property} = cc._decorator;
 import {LaunchManager} from './LaunchManager'
 import {ChunkGenerator} from '../chunkGen/ChunkGenerator'
 import {Planet} from '../Planet'
+import {Station} from '../Station'
 
 
 @ccclass
@@ -24,8 +25,11 @@ export class Ship extends cc.Component {
     @property()
     public orbitRadiusOffset:number = 20;
 
+
     @property()
-    public fuel:number = 100;
+    public fuelTransferRate:number = 25;
+    @property()
+    public fuel:number = 300;
 
     @property()
     public imuneTime:number = 1;
@@ -43,6 +47,8 @@ export class Ship extends cc.Component {
     private _launchAcc: cc.Vec2;
     private _chunks:ChunkGenerator;
     private _time:number = 0;
+    private orbitDirection:number = 0;
+    private orbitOffset:number = 0;
 
 
 private count:number = 0;
@@ -94,7 +100,17 @@ private count:number = 0;
     calcLaunchVector() {
       let result = this._lm.touchLastPoint.sub(this._lm.touchStartPoint);
       let screenSize = this._canvas.designResolution.height;
-      this._launchPower = (result.mag()/screenSize) * 300;
+      let powerPercent = ( result.mag() / (screenSize * 0.8)) * 100;
+      if (powerPercent>100) {
+        powerPercent = 100;
+      }
+      if (powerPercent > this.fuel) {
+        powerPercent = this.fuel;
+      }
+      this._launchPower = powerPercent * 3;
+      this.fuel -= powerPercent;
+      console.log("PowerPercent:", powerPercent);
+      console.log("Fuel:", this.fuel);
 
 
       let rad = (this.node.angle+90) *Math.PI/180;
@@ -111,8 +127,8 @@ private count:number = 0;
       let atraction = cc.Vec2.ZERO;
       if (this.currentImuneTime > this.imuneTime ) {
         atraction = this.getPlanetsAtraction();
+        this.gatherFuel(dt);
       } else {
-        console.log("imune", this.currentImuneTime);
         this.currentImuneTime += dt;
       }
       // Entrou numa orbita
@@ -146,7 +162,7 @@ private count:number = 0;
       let angle = Math.atan2(newPos.y - pos.y, newPos.x - pos.x) * 180 / Math.PI;
 
       let newAngle = angle - 90;// * 180/Math.PI;
-      this.fuel -= 10*dt;
+      // this.fuel -= 10*dt;
 
       this.node.angle = newAngle;
 
@@ -166,14 +182,23 @@ private count:number = 0;
 
         if(!this.planet) {
           if (distance < p.radius ) {
+
             this._time = 0;
-            console.log("In orbit");
+            this.orbitDirection = Math.random()<0.5?-1:1;
+            this.orbitOffset = Math.random()*360;
             this.planet = p;
+
+            if (this.fuel == 0) {
+              //GameOver;
+              console.log("gameObver");
+            }
+
             if (this.planetTest.length == 0) {
               this._chunks.removePlanet(p);
             } else {
               this.planetTest.splice(this.planetTest.indexOf(this.planet),1);
             }
+
           }
 
           if(distance < atractionRadius) {
@@ -189,12 +214,12 @@ private count:number = 0;
 
     orbitPlanet(dt) {
       this._time += dt;
-      let x = this.planet.node.position.x + (Math.cos(this._time) * this.planet.radius )
-      let y = this.planet.node.position.y + (Math.sin(this._time) * this.planet.radius )
+      let x = this.planet.node.position.x + (Math.cos((this._time+this.orbitOffset) * this.orbitDirection) * this.planet.radius )
+      let y = this.planet.node.position.y + (Math.sin((this._time+this.orbitOffset) * this.orbitDirection) * this.planet.radius )
 
       let angle = Math.atan2(this.planet.node.position.y - y, this.planet.node.position.x - x) * 180 / Math.PI;
 
-      this.node.angle = angle+180;
+      this.node.angle = angle+ (this.orbitDirection<0?0:180);
       // this.node.angle = 0;
 
       // this.node.position = ;
@@ -203,5 +228,29 @@ private count:number = 0;
       } else {
         this.node.position = new cc.Vec2(x, y);
       }
+    }
+
+    gatherFuel(dt) {
+      let stationsP:Planet[] = this._chunks.getAllStations();
+      stationsP.forEach((p) => {
+        
+        let dist = p.node.position.sub(this.node.position).mag();
+        if (dist < 250) {
+          
+          let station = p.getComponent(Station);
+          if (station.fuel <= 0) return;
+
+          let fuelRecharge = this.fuelTransferRate*dt;
+          if (station.fuel < fuelRecharge) {
+            fuelRecharge = station.fuel;
+          }
+          station.updateFuel();
+          station.fuel -= fuelRecharge;
+          this.fuel += fuelRecharge;
+
+        }
+
+
+      });
     }
 }

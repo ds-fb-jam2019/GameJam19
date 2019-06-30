@@ -43,6 +43,13 @@ export class Ship extends cc.Component {
     @property(MenuControl)
     public menuControl: MenuControl = null;
 
+    @property(cc.AudioSource)
+    public launch_sound:cc.AudioSource = null;
+    @property(cc.AudioSource)
+    public planet_orbit:cc.AudioSource = null;
+    @property([cc.AudioSource])
+    public terraform_sound:cc.AudioSource[] = [];
+
     private _activeLaunching:boolean = false;
     private _traveling: boolean = false;
     private _orbiting: boolean = false;
@@ -76,6 +83,7 @@ private count:number = 0;
       this.menuControl.setPlanetas(0);
       this.menuControl.setGalaxias(0);
       this.fuel = this.maxFuel;
+      // this.launch_sound = this.getComponent(cc.AudioSource);
       // this._planetTest = this.planetTest.getComponent("Planet");
     }
 
@@ -112,9 +120,11 @@ private count:number = 0;
         // this.planet.node.destroy();
         this._orbiting = false;
       }
+      this.launch_sound.play();
       this.menuControl.traveling = true;
       this.menuControl.setStatus("VIAJANDO");
       this.planet = null;
+      this._lm.canLaunch = false;
       this.calcLaunchVector();
     }
 
@@ -158,7 +168,7 @@ private count:number = 0;
 
         this._traveling = false;
         this.menuControl.traveling = false;
-        this.menuControl.setStatus("PARADO");
+        this.menuControl.setStatus("ORBITANDO");
         return;
 
       }
@@ -216,6 +226,9 @@ private count:number = 0;
             this.orbitDirection = Math.random()<0.5?-1:1;
             this.orbitOffset = Math.random()*360;
             this.planet = p;
+            this.planet_orbit.play();
+
+            this._lm.canLaunch = true;
 
             if (this.fuel == 0) {
               //GameOver;
@@ -236,14 +249,20 @@ private count:number = 0;
             resultAtraction.y += (p.radius/100) * diff.y/ distance;
           }
 
-          if (!p.terraformed && distance < 250) {
+          if (!p.terraformed && distance < p.radius + (60 * (p.radius/100))) {
             p.terraformed = true;
             this.menuControl.setPlanetas(++this._planetCount);
+            this.playRand(this.terraform_sound);
           }
         }
       });
 
       return resultAtraction;
+    }
+
+    playRand(sounds:cc.AudioSource[]) {
+      let idx = Math.round(Math.random() * (sounds.length-1));
+      sounds[idx].play();
     }
 
     orbitPlanet(dt) {

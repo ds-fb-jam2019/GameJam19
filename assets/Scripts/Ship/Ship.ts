@@ -15,6 +15,7 @@ import {ChunkGenerator} from '../chunkGen/ChunkGenerator'
 import {Planet} from '../Planet'
 import {Station} from '../Station'
 import {MenuControl} from '../Menu/MenuControl'
+import {FriendManager} from '../FriendManager';
 
 
 @ccclass
@@ -55,6 +56,10 @@ export class Ship extends cc.Component {
     public fill_looping:cc.AudioSource = null;
     @property([cc.AudioSource])
     public terraform_sound:cc.AudioSource[] = [];
+
+
+    @property(FriendManager)
+    public friendManager:FriendManager = null;
 
     @property(cc.Node)
     public launchTuto:cc.Node = null;
@@ -225,6 +230,7 @@ private count:number = 0;
       let travelDistance = newPos.mag();
       if (travelDistance > this._maxTravelDistance) {
         this._maxTravelDistance = travelDistance;
+        this.friendManager.findFriendsForDistance(this._maxTravelDistance);
         this.menuControl.setDistancia(Math.floor(this._maxTravelDistance));
       }
 

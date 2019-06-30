@@ -14,7 +14,7 @@ import {Ship} from './Ship/Ship'
 
 
 @ccclass
-export default class FriendBubble extends cc.Component {
+export class FriendBubble extends cc.Component {
 
 
   private _ship:Ship;
@@ -56,7 +56,6 @@ export default class FriendBubble extends cc.Component {
     this._ship.throwAtBubble(new cc.Vec2(this.node.position.x, this.node.position.y - 60));
     this.bloobSound.play();
     this.node.destroy();
-    
   }
 
   update (dt) {

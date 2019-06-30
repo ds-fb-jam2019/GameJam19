@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "f0044657-21fe-4fde-b5e7-b1a2037d83f6",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "tela_overlay": {
+      "ver": "1.0.3",
+      "uuid": "bddc7af4-907e-481d-aa75-58355739f769",
+      "rawTextureUuid": "f0044657-21fe-4fde-b5e7-b1a2037d83f6",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 12.5,
+      "trimX": 0,
+      "trimY": 1,
+      "width": 256,
+      "height": 229,
+      "rawWidth": 256,
+      "rawHeight": 256,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

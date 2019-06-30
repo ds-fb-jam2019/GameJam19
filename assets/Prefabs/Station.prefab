@@ -18,17 +18,14 @@
     "_parent": null,
     "_children": [],
     "_active": true,
-    "_level": 2,
+    "_level": 1,
     "_components": [
       {
         "__id__": 2
-      },
-      {
-        "__id__": 3
       }
     ],
     "_prefab": {
-      "__id__": 4
+      "__id__": 3
     },
     "_opacity": 255,
     "_color": {
@@ -56,8 +53,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 0.6,
-      "y": 0.6,
+      "x": 0.3,
+      "y": 0.3,
       "z": 1
     },
     "_quat": {
@@ -76,34 +73,6 @@
     "_id": ""
   },
   {
-    "__type__": "cc.Sprite",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 1
-    },
-    "_enabled": true,
-    "_materials": [],
-    "_srcBlendFactor": 770,
-    "_dstBlendFactor": 771,
-    "_spriteFrame": {
-      "__uuid__": "0ffa2274-5222-4c3a-a2e9-057017f9ea48"
-    },
-    "_type": 0,
-    "_sizeMode": 1,
-    "_fillType": 0,
-    "_fillCenter": {
-      "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0
-    },
-    "_fillStart": 0,
-    "_fillRange": 0,
-    "_isTrimmedMode": true,
-    "_atlas": null,
-    "_id": ""
-  },
-  {
     "__type__": "9d605fgVZJOKJE71Uo5hyBS",
     "_name": "",
     "_objFlags": 0,
@@ -111,7 +80,11 @@
       "__id__": 1
     },
     "_enabled": true,
-    "label": null,
+    "planets": [
+      {
+        "__uuid__": "6b04ea1f-eada-4d40-8427-3f43f9bf1767"
+      }
+    ],
     "radius": 0,
     "mass": 0,
     "orbitRadius": 90,
@@ -129,7 +102,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "07213d33-1322-4fdb-ae22-5482eabc4da8"
     },
     "fileId": "69rUv6n35Iepg0f379A9qc",
     "sync": false

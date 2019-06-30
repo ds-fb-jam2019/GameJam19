@@ -76,10 +76,10 @@
     "_level": 1,
     "_components": [
       {
-        "__id__": 9
+        "__id__": 7
       },
       {
-        "__id__": 10
+        "__id__": 8
       }
     ],
     "_prefab": null,
@@ -222,7 +222,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "Station",
+    "_name": "New Sprite",
     "_objFlags": 0,
     "_parent": {
       "__id__": 2
@@ -233,14 +233,9 @@
     "_components": [
       {
         "__id__": 6
-      },
-      {
-        "__id__": 7
       }
     ],
-    "_prefab": {
-      "__id__": 8
-    },
+    "_prefab": null,
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
@@ -251,8 +246,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 100,
-      "height": 100
+      "width": 1418,
+      "height": 2437
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -267,8 +262,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 0.6,
-      "y": 0.6,
+      "x": 1,
+      "y": 1,
       "z": 1
     },
     "_quat": {
@@ -284,7 +279,7 @@
     "groupIndex": 0,
     "_rotationX": 0,
     "_rotationY": 0,
-    "_id": "69rUv6n35Iepg0f379A9qc"
+    "_id": "06W4QxC8hJEqcjm54dA02r"
   },
   {
     "__type__": "cc.Sprite",
@@ -298,7 +293,7 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_spriteFrame": {
-      "__uuid__": "0ffa2274-5222-4c3a-a2e9-057017f9ea48"
+      "__uuid__": "152ec75f-1d1f-41bc-91fc-6d1ff544600e"
     },
     "_type": 0,
     "_sizeMode": 1,
@@ -312,38 +307,7 @@
     "_fillRange": 0,
     "_isTrimmedMode": true,
     "_atlas": null,
-    "_id": "0c3k3MybVJ/7qWAY9dATv4"
-  },
-  {
-    "__type__": "9d605fgVZJOKJE71Uo5hyBS",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 5
-    },
-    "_enabled": true,
-    "label": null,
-    "radius": 0,
-    "mass": 0,
-    "orbitRadius": 90,
-    "orbitCenter": {
-      "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0
-    },
-    "speedMod": 1,
-    "_id": "e9zXQ3JcNGsLaQPFCGfb4j"
-  },
-  {
-    "__type__": "cc.PrefabInfo",
-    "root": {
-      "__id__": 5
-    },
-    "asset": {
-      "__uuid__": "07213d33-1322-4fdb-ae22-5482eabc4da8"
-    },
-    "fileId": "69rUv6n35Iepg0f379A9qc",
-    "sync": false
+    "_id": "b340cuXeVG27i2c7VgQ8Ws"
   },
   {
     "__type__": "cc.Canvas",
@@ -370,6 +334,7 @@
       "__id__": 2
     },
     "_enabled": true,
+    "_canvas": null,
     "planetBase": {
       "__uuid__": "42ef1419-1b14-460d-985a-45a4ffd5a940"
     },
@@ -378,14 +343,15 @@
     },
     "minPlanetsPerChunk": 1,
     "maxPlanetsPerChunk": 3,
-    "minPlanetsRadius": 20,
-    "maxPlanetsRadius": 90,
+    "minPlanetsRadius": 40,
+    "maxPlanetsRadius": 100,
     "minPlanetOrbit": 50,
     "maxPlanetOrbit": 500,
     "minPlanetsSpeedMod": 0.1,
     "maxPlanetsSpeedMod": 1,
-    "minStationsPerChunk": 0,
-    "maxStationsPerChunk": 1,
+    "stationSpawnChance": 0.2,
+    "minStationOrbit": 50,
+    "maxStationOrbit": 250,
     "_id": "21A67KqBJOk6Bp8uDuh5uM"
   }
 ]

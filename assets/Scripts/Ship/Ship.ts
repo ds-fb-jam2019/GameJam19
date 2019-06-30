@@ -42,6 +42,10 @@ export class Ship extends cc.Component {
 
     @property(MenuControl)
     public menuControl: MenuControl = null;
+    @property(cc.Graphics)
+    public gfx:cc.Graphics = null;
+    @property(cc.Node)
+    public nodeDirection:cc.Node = null;
 
     @property(cc.AudioSource)
     public launch_sound:cc.AudioSource = null;
@@ -88,11 +92,16 @@ private count:number = 0;
     }
 
     update (dt) {
-      if(this._lm.isLaunching && !this._traveling)
+      if(this._lm.isLaunching && !this._traveling) {
+        this.nodeDirection.active = true;
         this._activeLaunching = true;
+      }
 
       if(this._activeLaunching) {
+        this.showPowerBubble();
         if(this._lm.isLaunching == false) {
+          this.nodeDirection.active = false;
+          this.gfx.clear();
           console.log("Launch!")
           this._activeLaunching = false;
           this.launch();
@@ -111,6 +120,25 @@ private count:number = 0;
         }
         this.orbitPlanet(dt);
       }
+    }
+
+    showPowerBubble() {
+      let result = this._lm.touchLastPoint.sub(this._lm.touchStartPoint);
+      let screenSize = this._canvas.designResolution.height;
+      let powerPercent = ( result.mag() / (screenSize * 0.8)) ;
+      if (powerPercent>1) {
+        powerPercent = 1;
+      }
+
+      let bubbleSize = 20+ (powerPercent*80);
+
+      this.gfx.clear();
+      this.gfx.strokeColor = cc.color(255,255,255,70);
+      this.gfx.lineWidth = 2;
+      this.gfx.fillColor = cc.color(255,255,255,30);
+      this.gfx.ellipse(this.node.position.x, this.node.position.y, bubbleSize, bubbleSize);
+      this.gfx.stroke();
+      this.gfx.fill();
     }
 
     launch() {

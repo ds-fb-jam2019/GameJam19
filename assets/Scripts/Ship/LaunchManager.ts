@@ -39,6 +39,7 @@ export class LaunchManager extends cc.Component {
 
     start () {
       this.node.on('touchstart', (event:cc.Event.EventTouch)=>{
+          
         if (!this.canLaunch) return;
         console.log("touchstart");
         let touch = event.getTouches()[0];
@@ -48,6 +49,7 @@ export class LaunchManager extends cc.Component {
         this.isLaunching = true;
         this._timer = 0;
         this.charging.play();
+
       }, this);
 
       this.node.on('touchmove', (event:cc.Event.EventTouch) => {

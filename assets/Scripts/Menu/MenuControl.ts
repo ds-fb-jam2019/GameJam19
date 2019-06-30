@@ -24,7 +24,16 @@ export class MenuControl extends cc.Component {
     @property(cc.Node)
     public combustivel: cc.Node;
 
-    public traveling: boolean = false;
+    @property(cc.AudioSource)
+    public newGalaxy:cc.AudioSource = null;
+
+    @property(cc.Graphics)
+    public graphics:cc.Graphics = null;
+
+    @property(cc.Animation)
+    public bigRoboAnim:cc.Animation = null;
+
+    public traveling: boolean = true;
     planetCounter: number = 0;
     travelingDistance: number = 1;
     reset: number = 0;
@@ -41,6 +50,11 @@ export class MenuControl extends cc.Component {
     	this.setPlanetas(14);
     	this.setGalaxias(5);
     	this.setDistancia(378);
+
+  //   	var ctx = this.node.getComponent(cc.Graphics);
+		// ctx.ellipse(0,0, 100,200);
+		// cc.log("node x: "+this.node.x);
+		// ctx.stroke();
     }
 
     update (dt) {
@@ -57,10 +71,11 @@ export class MenuControl extends cc.Component {
     createOrbit(i) {
     	if(this.planetCounter >= this.maxPlanets)
     		this.resetPlanets();
-    	var ctx = this.node.getComponent(cc.Graphics);
-		ctx.ellipse(this.node.x,this.node.y, this.travelingDistance,this.planetCounter*5);
-		cc.log("node x: "+this.node.x);
-		ctx.stroke();
+
+		this.graphics.ellipse(0,0, this.travelingDistance,this.planetCounter*5);
+		cc.log("node x: "+this.planetCounter*5);
+		this.graphics.stroke();
+
     	this.planetCounter++;
     	var node = cc.instantiate(this.planet[i]);
 		console.log("I: : ",i,);
@@ -81,13 +96,15 @@ export class MenuControl extends cc.Component {
     		planet.destroy();
     	})
     	this.planetList = [];
-    	var ctx = this.node.getComponent(cc.Graphics);
-    	ctx.clear();
+    	this.graphics.clear();
 
     	this.planetCounter = 1;
     	this.travelingDistance = 15;
     	this.reset++;
     	this.maxPlanets++;
+    	this.setGalaxias(this.reset);
+
+    	this.newGalaxy.play();
 
     	for (var i = this.reset - 1; i >= 0; i--) {
     		this.createOrbit(1);
@@ -121,5 +138,16 @@ export class MenuControl extends cc.Component {
 
     setCombustivel(p) {
         this.combustivel.scaleX = p;
+    }
+
+    setTraveling(isTraveling) {
+        this.traveling = isTraveling;
+        var clip = this.bigRoboAnim.play("Iddle");
+        if(isTraveling) {
+        	clip.speed = 7;
+        } else {
+        	clip.speed = 0.5;
+
+        }
     }
 }

@@ -10,51 +10,42 @@
 
 const {ccclass, property} = cc._decorator;
 
-@ccclass
-export class GameManager extends cc.Component {
+import {GameManager} from '../Game Manager/GameManager';
 
-   public _galaxias: number;
-   public _planetas: number;
-   public _distancia: number;
+@ccclass
+export default class NewClass extends cc.Component {
+
+    @property(cc.Label)
+    planetas: cc.Label = null;
+
+    @property(cc.Label)
+    distancia: cc.Label = null;
+
+    @property(cc.Label)
+    galaxias: cc.Label = null;
+
+    private _gm;
+    private _info;
 
     // LIFE-CYCLE CALLBACKS:
 
     // onLoad () {}
 
     start () {
-      cc.game.addPersistRootNode(this.node);
+      this._gm = cc.find("GameManager").getComponent("GameManager");
+      this.setInfo();
     }
 
     // update (dt) {}
 
-    startGame() {
-      this.resetGameValues();
-      cc.director.loadScene("Main");
+    setInfo() {
+      this._info = this._gm.getRunInfo();
+      this.planetas.string = "PLANETAS COLONIZADOS      X"+this._info.planetas;
+      this.distancia.string = "DISTANCIA VIAJADA      X"+this._info.distancia;
+      this.galaxias.string = "GALÁXIAS FUNDADAS      X"+this._info.galaxias;
     }
 
-    gameOver() {
-      console.log("gameOver");
-      cc.director.loadScene("GameOver");
+    gotoStart() {
+      this._gm.restartGame();
     }
-
-    restartGame() {
-      this.resetGameValues();
-      cc.director.loadScene("Start");
-    }
-
-    resetGameValues() {
-      this._galaxias = 0;
-      this._planetas = 0;
-      this._distancia = 0;
-    }
-
-    getRunInfo() {
-      return {
-        galaxias: this._galaxias,
-        planetas: this._planetas,
-        distancia: this._distancia
-      };
-    }
-
-
 }

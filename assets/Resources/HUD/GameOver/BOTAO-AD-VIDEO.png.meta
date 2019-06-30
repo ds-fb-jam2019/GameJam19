@@ -1,0 +1,32 @@
+{
+  "ver": "2.3.0",
+  "uuid": "348eff35-9270-4774-a287-02ad47073c28",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "platformSettings": {},
+  "subMetas": {
+    "BOTAO-AD-VIDEO": {
+      "ver": "1.0.4",
+      "uuid": "ce95d0fb-47a0-499e-b392-f0ceed1941c6",
+      "rawTextureUuid": "348eff35-9270-4774-a287-02ad47073c28",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 1247,
+      "height": 299,
+      "rawWidth": 1247,
+      "rawHeight": 299,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

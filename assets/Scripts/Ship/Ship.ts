@@ -13,6 +13,7 @@ const {ccclass, property} = cc._decorator;
 import {LaunchManager} from './LaunchManager'
 import {ChunkGenerator} from '../chunkGen/ChunkGenerator'
 import {Planet} from '../Planet'
+import {MenuControl} from '../Menu/MenuControl'
 
 
 @ccclass
@@ -34,8 +35,12 @@ export class Ship extends cc.Component {
     @property([Planet])
     public planetTest: Planet[] = [];
 
+    @property(MenuControl)
+    public menuControl: null;
+
     private _activeLaunching:boolean = false;
     private _traveling: boolean = false;
+    private _orbiting: boolean = false;
 
     private _lm:LaunchManager;
     private _canvas: cc.Canvas;
@@ -77,6 +82,11 @@ private count:number = 0;
       }
 
       if (this.planet) {
+        if(!this._orbiting) {
+          this._orbiting = true;
+          if(this.menuControl)
+          this.menuControl.createOrbit(0);
+        }
         this.orbitPlanet(dt);
       }
     }
@@ -86,7 +96,10 @@ private count:number = 0;
       this.currentImuneTime = 0;
       if (this.planet) {
         // this.planet.node.destroy();
+        this._orbiting = false;
       }
+      this.menuControl.traveling = true;
+      this.menuControl.setStatus("VIAJANDO");
       this.planet = null;
       this.calcLaunchVector();
     }
@@ -119,6 +132,8 @@ private count:number = 0;
       if (this.planet) {
 
         this._traveling = false;
+        this.menuControl.traveling = false;
+        this.menuControl.setStatus("PARADO");
         return;
 
       }
@@ -154,7 +169,7 @@ private count:number = 0;
 
     getPlanetsAtraction() {
       let resultAtraction = new cc.Vec2(0,0);
-      let planets = this.planetTest; 
+      let planets = this.planetTest;
       if (this.planetTest.length == 0) {
         planets = this._chunks.getAllPlanets();
       }

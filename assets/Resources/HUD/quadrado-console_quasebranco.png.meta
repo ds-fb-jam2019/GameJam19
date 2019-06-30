@@ -1,14 +1,15 @@
 {
-  "ver": "2.2.0",
+  "ver": "2.3.0",
   "uuid": "c72b7e47-8f76-4771-b292-fb0a72fe40aa",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
   "premultiplyAlpha": false,
+  "platformSettings": {},
   "subMetas": {
     "quadrado-console_quasebranco": {
-      "ver": "1.0.3",
-      "uuid": "0dc94736-3348-46d9-bb95-28817c0c343d",
+      "ver": "1.0.4",
+      "uuid": "04639065-7812-44f3-af35-440bf8c573be",
       "rawTextureUuid": "c72b7e47-8f76-4771-b292-fb0a72fe40aa",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -21,10 +22,10 @@
       "height": 80,
       "rawWidth": 80,
       "rawHeight": 80,
-      "borderTop": 4,
-      "borderBottom": 4,
-      "borderLeft": 4,
-      "borderRight": 4,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
       "subMetas": {}
     }
   }

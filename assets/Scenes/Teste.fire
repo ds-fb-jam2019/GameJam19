@@ -537,18 +537,18 @@
     "stationBase": {
       "__uuid__": "07213d33-1322-4fdb-ae22-5482eabc4da8"
     },
-    "spawnRadius": 1,
+    "spawnRadius": 2,
     "minPlanetsPerChunk": 1,
     "maxPlanetsPerChunk": 3,
-    "minPlanetsRadius": 20,
+    "minPlanetsRadius": 40,
     "maxPlanetsRadius": 100,
     "minPlanetOrbit": 50,
     "maxPlanetOrbit": 500,
-    "minPlanetsSpeedMod": 0.3,
-    "maxPlanetsSpeedMod": 3,
-    "stationSpawnChance": 0.3,
+    "minPlanetsSpeedMod": 0.1,
+    "maxPlanetsSpeedMod": 1,
+    "stationSpawnChance": 0.2,
     "minStationOrbit": 50,
     "maxStationOrbit": 250,
-    "_id": "901uszu/tLxJatSFulOBAD"
+    "_id": "90CtSeny1OnIfQsLfDXdfm"
   }
 ]

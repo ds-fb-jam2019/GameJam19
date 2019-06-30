@@ -30,6 +30,7 @@ export class Ship extends cc.Component {
     @property()
     public fuelTransferRate:number = 25;
     @property()
+    public maxFuel:number = 300;
     public fuel:number = 300;
 
     @property()
@@ -40,7 +41,7 @@ export class Ship extends cc.Component {
     public planetTest: Planet[] = [];
 
     @property(MenuControl)
-    public menuControl: null;
+    public menuControl: MenuControl = null;
 
     private _activeLaunching:boolean = false;
     private _traveling: boolean = false;
@@ -55,6 +56,9 @@ export class Ship extends cc.Component {
     private orbitDirection:number = 0;
     private orbitOffset:number = 0;
 
+    private _maxTravelDistance:number = 0;
+    private _planetCount:number = 0;
+
 
 private count:number = 0;
     // private _planetTest: Planet;
@@ -68,6 +72,10 @@ private count:number = 0;
       this._lm = cc.find("Canvas/Main Camera/LaunchManager").getComponent("LaunchManager");
       this._chunks = cc.find("Canvas").getComponent("ChunkGenerator");
       this._canvas = cc.Canvas.instance;
+      this.menuControl.setDistancia(0);
+      this.menuControl.setPlanetas(0);
+      this.menuControl.setGalaxias(0);
+      this.fuel = this.maxFuel;
       // this._planetTest = this.planetTest.getComponent("Planet");
     }
 
@@ -120,10 +128,11 @@ private count:number = 0;
       if (powerPercent > this.fuel) {
         powerPercent = this.fuel;
       }
-      this._launchPower = powerPercent * 3;
+      this._launchPower = powerPercent * 6;
       this.fuel -= powerPercent;
       console.log("PowerPercent:", powerPercent);
       console.log("Fuel:", this.fuel);
+      this.menuControl.setCombustivel(this.fuel/this.maxFuel);
 
 
       let rad = (this.node.angle+90) *Math.PI/180;
@@ -165,9 +174,14 @@ private count:number = 0;
       let y = pos.y + (this._launchAcc.y * dt);
 
       let newPos = new cc.Vec2(x,y);
+      let travelDistance = newPos.mag();
+      if (travelDistance > this._maxTravelDistance) {
+        this._maxTravelDistance = travelDistance;
+        this.menuControl.setDistancia(Math.floor(this._maxTravelDistance));
+      }
 
       this.node.position = new cc.Vec2(x,y);
-      if (this.count++ > 100) {
+      if (this.count++ > 60) {
         this._chunks.chunksForPosition(x, y);
         this.count = 0;
       }
@@ -221,6 +235,11 @@ private count:number = 0;
             resultAtraction.x += (p.radius/100) * diff.x/ distance;
             resultAtraction.y += (p.radius/100) * diff.y/ distance;
           }
+
+          if (!p.terraformed && distance < 250) {
+            p.terraformed = true;
+            this.menuControl.setPlanetas(++this._planetCount);
+          }
         }
       });
 
@@ -262,7 +281,7 @@ private count:number = 0;
           station.updateFuel();
           station.fuel -= fuelRecharge;
           this.fuel += fuelRecharge;
-
+          this.menuControl.setCombustivel(this.fuel/this.maxFuel);
         }
 
 

@@ -40,6 +40,10 @@ export class Planet extends cc.Component {
     public speedMod:number = 1;
 
 
+    @property()
+    public terraformed:boolean = false;
+
+
     private time:number = 0;
     private _direction:number = 1;
 

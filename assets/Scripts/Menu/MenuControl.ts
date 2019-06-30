@@ -21,6 +21,9 @@ export class MenuControl extends cc.Component {
     @property(cc.Label)
     public distancia: cc.Label;
 
+    @property(cc.Node)
+    public combustivel: cc.Node;
+
     public traveling: boolean = false;
     planetCounter: number = 0;
     travelingDistance: number = 1;
@@ -114,5 +117,9 @@ export class MenuControl extends cc.Component {
 
     setDistancia(s) {
     	this.distancia.string = "Distância x"+s;
+    }
+
+    setCombustivel(p) {
+        this.combustivel.scaleX = p;
     }
 }

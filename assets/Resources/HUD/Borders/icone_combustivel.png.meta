@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "fca0223f-1b4e-4815-87e5-01aa242bcff7",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "icone_combustivel": {
+      "ver": "1.0.3",
+      "uuid": "6026c1c1-7527-4d04-b7aa-802c6deb83d5",
+      "rawTextureUuid": "fca0223f-1b4e-4815-87e5-01aa242bcff7",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": -0.5,
+      "trimX": 0,
+      "trimY": 18,
+      "width": 256,
+      "height": 221,
+      "rawWidth": 256,
+      "rawHeight": 256,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

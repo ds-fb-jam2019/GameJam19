@@ -25,6 +25,9 @@ export default class FriendBubble extends cc.Component {
   private screenW = 0;
   private screenH = 0;
 
+  @property(cc.AudioSource)
+  public bloobSound = null;
+
   start () {
     this._ship = cc.find('Canvas/Ship').getComponent(Ship);
 
@@ -51,7 +54,7 @@ export default class FriendBubble extends cc.Component {
 
   popBubble() {
     this._ship.throwAtBubble(new cc.Vec2(this.node.position.x, this.node.position.y - 60));
-
+    this.bloobSound.play();
     this.node.destroy();
     
   }

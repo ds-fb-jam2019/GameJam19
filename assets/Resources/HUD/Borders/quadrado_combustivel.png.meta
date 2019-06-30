@@ -1,13 +1,14 @@
 {
-  "ver": "2.2.0",
+  "ver": "2.3.0",
   "uuid": "034ce24c-aee8-40e2-9919-9c6372043e7e",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
   "premultiplyAlpha": false,
+  "platformSettings": {},
   "subMetas": {
     "quadrado_combustivel": {
-      "ver": "1.0.3",
+      "ver": "1.0.4",
       "uuid": "308d4436-0b93-41a4-9f1e-c4f01795b507",
       "rawTextureUuid": "034ce24c-aee8-40e2-9919-9c6372043e7e",
       "trimType": "auto",

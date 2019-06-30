@@ -27,6 +27,10 @@ export class Ship extends cc.Component {
     @property()
     public fuel:number = 100;
 
+    @property()
+    public imuneTime:number = 1;
+    public currentImuneTime:number = 0;
+
     @property([Planet])
     public planetTest: Planet[] = [];
 
@@ -79,6 +83,7 @@ private count:number = 0;
 
     launch() {
       this._traveling = true;
+      this.currentImuneTime = 0;
       if (this.planet) {
         // this.planet.node.destroy();
       }
@@ -89,7 +94,7 @@ private count:number = 0;
     calcLaunchVector() {
       let result = this._lm.touchLastPoint.sub(this._lm.touchStartPoint);
       let screenSize = this._canvas.designResolution.height;
-      this._launchPower = (result.mag()/screenSize) * 100;
+      this._launchPower = (result.mag()/screenSize) * 300;
 
 
       let rad = (this.node.angle+90) *Math.PI/180;
@@ -103,8 +108,13 @@ private count:number = 0;
     }
 
     calcTravel(dt) {
-      let atraction = this.getPlanetsAtraction();
-
+      let atraction = cc.Vec2.ZERO;
+      if (this.currentImuneTime > this.imuneTime ) {
+        atraction = this.getPlanetsAtraction();
+      } else {
+        console.log("imune", this.currentImuneTime);
+        this.currentImuneTime += dt;
+      }
       // Entrou numa orbita
       if (this.planet) {
 
@@ -114,8 +124,8 @@ private count:number = 0;
       }
 
       let pos = this.node.position;
-      let angle = (this.node.angle+90) * (Math.PI /180);
-      let displacement = dt * this._launchPower * 100;
+      // let angle = (this.node.angle+90) * (Math.PI /180);
+      // let displacement = dt * this._launchPower * 1000;
 
       this._launchAcc.x -= atraction.x;
       this._launchAcc.y -= atraction.y;
@@ -133,7 +143,7 @@ private count:number = 0;
 
       let diff = pos.sub(newPos);
 
-      angle = Math.atan2(newPos.y - pos.y, newPos.x - pos.x) * 180 / Math.PI;
+      let angle = Math.atan2(newPos.y - pos.y, newPos.x - pos.x) * 180 / Math.PI;
 
       let newAngle = angle - 90;// * 180/Math.PI;
       this.fuel -= 10*dt;
@@ -156,6 +166,7 @@ private count:number = 0;
 
         if(!this.planet) {
           if (distance < p.radius ) {
+            this._time = 0;
             console.log("In orbit");
             this.planet = p;
             if (this.planetTest.length == 0) {
@@ -186,6 +197,11 @@ private count:number = 0;
       this.node.angle = angle+180;
       // this.node.angle = 0;
 
-      this.node.position = new cc.Vec2(x, y);
+      // this.node.position = ;
+      if (this._time<1) {
+        this.node.position = this.node.position.lerp(new cc.Vec2(x, y), (5 + this._time * 10)*dt);
+      } else {
+        this.node.position = new cc.Vec2(x, y);
+      }
     }
 }

@@ -89,7 +89,7 @@ export class ChunkGenerator extends cc.Component {
         let chunkLabel = i+"_"+j;
         activeChunks.push(chunkLabel);
         if (!this.chunks[chunkLabel]) {
-          console.log("Gerando planetas para: ", chunkLabel);
+          // console.log("Gerando planetas para: ", chunkLabel);
           this.chunks[chunkLabel] = this.generatePlanets(i, j);
           this.stations[chunkLabel] = this.generateStations(i, j);
         }
@@ -98,7 +98,7 @@ export class ChunkGenerator extends cc.Component {
 
     for(let atr in this.chunks) {
       if (activeChunks.indexOf(atr) == -1 ){
-        console.log("removendo o chunk:"+atr);
+        // console.log("removendo o chunk:"+atr);
         this.removePlanets(this.chunks[atr] as Planet[]);
         this.removePlanets(this.stations[atr] as Planet[]);
         delete this.chunks[atr];

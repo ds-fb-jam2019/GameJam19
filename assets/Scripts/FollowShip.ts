@@ -17,6 +17,9 @@ export default class FollowShip extends cc.Component {
     @property(Ship)
     ship: Ship = null;
 
+    private _timeA:number = 0;
+    private _timeB:number = 0;
+
     // LIFE-CYCLE CALLBACKS:
 
     // onLoad () {}
@@ -26,12 +29,22 @@ export default class FollowShip extends cc.Component {
 
     update (dt) {
       if (!this.ship.planet) {
-          this.node.position = new cc.Vec2(this.ship.node.position.x, this.ship.node.position.y);
+          if (this._timeB<1) {
+              this.node.position = this.node.position.lerp(new cc.Vec2(this.ship.node.position.x, this.ship.node.position.y), (5+this._timeB*50)*dt);
+          } else {
+              this.node.position = new cc.Vec2(this.ship.node.position.x, this.ship.node.position.y);
+          }
           // console.log("Acompanhando nave");
+          this._timeA = 0;
+          this._timeB += dt;
       } else {
-          this.node.position = new cc.Vec2(this.ship.planet.node.position.x, this.ship.planet.node.position.y);
-          // console.log("Acompanhando planeta")
+          this._timeB = 0;
+          this._timeA += dt;
+          if (this._timeA<1) {
+              this.node.position = this.node.position.lerp(new cc.Vec2(this.ship.planet.node.position.x, this.ship.planet.node.position.y), (5 + this._timeA*50 )*dt);
+          } else {
+              this.node.position = new cc.Vec2(this.ship.planet.node.position.x, this.ship.planet.node.position.y);
+          }
       }
-      // console.log("asdf: ", this.node.position);
     }
 }

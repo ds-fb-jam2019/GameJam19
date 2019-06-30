@@ -1,6 +1,6 @@
 {
   "ver": "2.3.0",
-  "uuid": "20a95c32-81a3-49f5-8a3f-7b472ea6560b",
+  "uuid": "91e7a417-4359-4aac-a76a-5b1ad2daa1bb",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -9,8 +9,8 @@
   "subMetas": {
     "BOTAO_COMPARTILHAR": {
       "ver": "1.0.4",
-      "uuid": "681855d0-5eba-4369-987e-f273d27d6db8",
-      "rawTextureUuid": "20a95c32-81a3-49f5-8a3f-7b472ea6560b",
+      "uuid": "4a9dc63c-fe32-4297-bcf7-bd2f23065482",
+      "rawTextureUuid": "91e7a417-4359-4aac-a76a-5b1ad2daa1bb",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,

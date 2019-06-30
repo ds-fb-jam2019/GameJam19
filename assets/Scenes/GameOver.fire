@@ -101,6 +101,9 @@
       },
       {
         "__id__": 38
+      },
+      {
+        "__id__": 39
       }
     ],
     "_prefab": null,
@@ -314,7 +317,7 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_spriteFrame": {
-      "__uuid__": "2bd56ed3-85f4-484d-b321-3126a86eb105"
+      "__uuid__": "22dc0a9a-749c-410a-8acc-dbb50ea7de8f"
     },
     "_type": 0,
     "_sizeMode": 0,
@@ -860,7 +863,7 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_spriteFrame": {
-      "__uuid__": "ce95d0fb-47a0-499e-b392-f0ceed1941c6"
+      "__uuid__": "49db6a80-6369-413a-858d-85a8eb9ead37"
     },
     "_type": 1,
     "_sizeMode": 0,
@@ -961,7 +964,7 @@
       "a": 200
     },
     "_N$normalSprite": {
-      "__uuid__": "ce95d0fb-47a0-499e-b392-f0ceed1941c6"
+      "__uuid__": "49db6a80-6369-413a-858d-85a8eb9ead37"
     },
     "_N$pressedSprite": null,
     "pressedSprite": null,
@@ -1144,7 +1147,7 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_spriteFrame": {
-      "__uuid__": "681855d0-5eba-4369-987e-f273d27d6db8"
+      "__uuid__": "4a9dc63c-fe32-4297-bcf7-bd2f23065482"
     },
     "_type": 1,
     "_sizeMode": 0,
@@ -1245,7 +1248,7 @@
       "a": 200
     },
     "_N$normalSprite": {
-      "__uuid__": "681855d0-5eba-4369-987e-f273d27d6db8"
+      "__uuid__": "4a9dc63c-fe32-4297-bcf7-bd2f23065482"
     },
     "_N$pressedSprite": null,
     "pressedSprite": null,
@@ -1650,7 +1653,7 @@
       "__id__": 2
     },
     "component": "",
-    "_componentId": "a9240V6+4NDlpZHA8WvSb3G",
+    "_componentId": "98824PN/I5Etp4/UGjfCDt1",
     "handler": "gotoStart",
     "customEventData": ""
   },
@@ -1716,5 +1719,24 @@
       "__id__": 15
     },
     "_id": "83wBS6rlFKWLngQ3wwEpYR"
+  },
+  {
+    "__type__": "98824PN/I5Etp4/UGjfCDt1",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 2
+    },
+    "_enabled": true,
+    "planetas": {
+      "__id__": 11
+    },
+    "distancia": {
+      "__id__": 13
+    },
+    "galaxias": {
+      "__id__": 15
+    },
+    "_id": "0cqvp/skFL56fM+Hi4J+M0"
   }
 ]

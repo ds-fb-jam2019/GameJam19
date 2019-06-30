@@ -1,6 +1,6 @@
 {
   "ver": "2.3.0",
-  "uuid": "97cbf915-d7b9-49c1-b63f-9591bbcc9338",
+  "uuid": "4d3f0590-e08c-433c-af11-033df6c8c7e1",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -9,8 +9,8 @@
   "subMetas": {
     "BACKGROUND_GAMEOVER": {
       "ver": "1.0.4",
-      "uuid": "2bd56ed3-85f4-484d-b321-3126a86eb105",
-      "rawTextureUuid": "97cbf915-d7b9-49c1-b63f-9591bbcc9338",
+      "uuid": "22dc0a9a-749c-410a-8acc-dbb50ea7de8f",
+      "rawTextureUuid": "4d3f0590-e08c-433c-af11-033df6c8c7e1",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,

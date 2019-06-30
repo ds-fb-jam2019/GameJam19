@@ -1,6 +1,6 @@
 {
   "ver": "2.3.0",
-  "uuid": "348eff35-9270-4774-a287-02ad47073c28",
+  "uuid": "d3edb75b-54a9-4764-b3f4-90d7d025567e",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -9,8 +9,8 @@
   "subMetas": {
     "BOTAO-AD-VIDEO": {
       "ver": "1.0.4",
-      "uuid": "ce95d0fb-47a0-499e-b392-f0ceed1941c6",
-      "rawTextureUuid": "348eff35-9270-4774-a287-02ad47073c28",
+      "uuid": "49db6a80-6369-413a-858d-85a8eb9ead37",
+      "rawTextureUuid": "d3edb75b-54a9-4764-b3f4-90d7d025567e",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,

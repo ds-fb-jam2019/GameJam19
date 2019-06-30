@@ -1,7 +1,7 @@
 const {ccclass, property} = cc._decorator;
 
 @ccclass
-export default class MenuControl extends cc.Component {
+export class MenuControl extends cc.Component {
 
     @property([cc.Prefab])
     public planet: cc.Prefab[] = [];
@@ -21,12 +21,12 @@ export default class MenuControl extends cc.Component {
     @property(cc.Label)
     public distancia: cc.Label;
 
+    public traveling: boolean = false;
     planetCounter: number = 0;
     travelingDistance: number = 1;
     reset: number = 0;
-    travelingSpeed: number = 10;
+    travelingSpeed: number = 5;
     maxPlanets: number = 10;
-    traveling: boolean = true;
     planetList: cc.Node[] = [];
 
     // LIFE-CYCLE CALLBACKS:

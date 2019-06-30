@@ -1,14 +1,13 @@
 {
-  "ver": "2.3.0",
+  "ver": "2.2.0",
   "uuid": "d80ca790-fa97-4fb6-a402-536976e213cc",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
   "premultiplyAlpha": false,
-  "platformSettings": {},
   "subMetas": {
     "planetasspreadsheet": {
-      "ver": "1.0.4",
+      "ver": "1.0.3",
       "uuid": "f72df45c-13a0-48e8-a2de-eb8dce1cd4b0",
       "rawTextureUuid": "d80ca790-fa97-4fb6-a402-536976e213cc",
       "trimType": "auto",

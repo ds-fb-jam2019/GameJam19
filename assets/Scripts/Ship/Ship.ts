@@ -156,7 +156,7 @@ private count:number = 0;
         this._orbiting = false;
       }
       this.launch_sound.play();
-      this.menuControl.traveling = true;
+      this.menuControl.setTraveling(true);
       this.menuControl.setStatus("VIAJANDO");
       this.planet = null;
       this._lm.canLaunch = false;
@@ -202,7 +202,7 @@ private count:number = 0;
       if (this.planet) {
 
         this._traveling = false;
-        this.menuControl.traveling = false;
+        this.menuControl.setTraveling(false);
         this.menuControl.setStatus("ORBITANDO");
         return;
 

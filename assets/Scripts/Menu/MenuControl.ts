@@ -30,6 +30,9 @@ export class MenuControl extends cc.Component {
     @property(cc.Graphics)
     public graphics:cc.Graphics = null;
 
+    @property(cc.Animation)
+    public bigRoboAnim:cc.Animation = null;
+
     public traveling: boolean = true;
     planetCounter: number = 0;
     travelingDistance: number = 1;
@@ -135,5 +138,16 @@ export class MenuControl extends cc.Component {
 
     setCombustivel(p) {
         this.combustivel.scaleX = p;
+    }
+
+    setTraveling(isTraveling) {
+        this.traveling = isTraveling;
+        var clip = this.bigRoboAnim.play("Iddle");
+        if(isTraveling) {
+        	clip.speed = 7;
+        } else {
+        	clip.speed = 0.5;
+
+        }
     }
 }

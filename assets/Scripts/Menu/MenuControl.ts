@@ -1,5 +1,7 @@
 const {ccclass, property} = cc._decorator;
 
+import {GameManager} from '../Game Manager/GameManager';
+
 @ccclass
 export class MenuControl extends cc.Component {
 
@@ -40,12 +42,14 @@ export class MenuControl extends cc.Component {
     travelingSpeed: number = 5;
     maxPlanets: number = 10;
     planetList: cc.Node[] = [];
+    private _gm:GameManager;
 
     // LIFE-CYCLE CALLBACKS:
 
     // onLoad () {}
 
     start () {
+        this._gm = cc.find("GameManager").getComponent("GameManager");
     	this.setStatus("PARADO");
     	this.setPlanetas(14);
     	this.setGalaxias(5);
@@ -126,14 +130,17 @@ export class MenuControl extends cc.Component {
 
     setPlanetas(s) {
     	this.planetas.string = "Planetas x "+s;
+        this._gm._planetas = s;
     }
 
     setGalaxias(s) {
     	this.galaxias.string = "Galaxias x "+s;
+        this._gm._galaxias = s;
     }
 
     setDistancia(s) {
     	this.distancia.string = "Distância x"+s;
+        this._gm._distancia = s;
     }
 
     setCombustivel(p) {

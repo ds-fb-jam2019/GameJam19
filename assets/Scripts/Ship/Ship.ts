@@ -15,7 +15,9 @@ import {ChunkGenerator} from '../chunkGen/ChunkGenerator'
 import {Planet} from '../Planet'
 import {Station} from '../Station'
 import {MenuControl} from '../Menu/MenuControl'
+import {GameManager} from '../Game Manager/GameManager';
 import {FriendManager} from '../FriendManager';
+
 
 
 @ccclass
@@ -79,6 +81,7 @@ export class Ship extends cc.Component {
 
     private _maxTravelDistance:number = 0;
     private _planetCount:number = 0;
+    private _gm:GameManager;
 
 
 private count:number = 0;
@@ -90,6 +93,7 @@ private count:number = 0;
     // onLoad () {}
 
     start () {
+      this._gm = cc.find("GameManager").getComponent("GameManager");
       this._lm = cc.find("Canvas/Main Camera/LaunchManager").getComponent("LaunchManager");
       this._chunks = cc.find("Canvas").getComponent("ChunkGenerator");
       this._canvas = cc.Canvas.instance;
@@ -109,7 +113,7 @@ private count:number = 0;
 
       if(this._activeLaunching) {
 
-        
+
         this.showPowerBubble();
         if(this._lm.isLaunching == false) {
           this.launchTuto.active = false;
@@ -276,7 +280,8 @@ private count:number = 0;
 
             if (this.fuel == 0) {
               //GameOver;
-              console.log("gameObver");
+              // console.log("gameObver");
+              this._gm.gameOver();
             }
 
             if (this.planetTest.length == 0) {
@@ -331,10 +336,10 @@ private count:number = 0;
       let stationsP:Planet[] = this._chunks.getAllStations();
       let gotFuel:boolean = false;
       stationsP.forEach((p) => {
-        
+
         let dist = p.node.position.sub(this.node.position).mag();
         if (dist < 250) {
-          
+
           let station = p.getComponent(Station);
           if (station.fuel <= 0) return;
 
@@ -358,7 +363,7 @@ private count:number = 0;
 
       });
 
-      if (!gotFuel) { 
+      if (!gotFuel) {
         this.fill_looping.stop();
       }
     }

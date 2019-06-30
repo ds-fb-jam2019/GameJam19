@@ -69,7 +69,7 @@ export class Planet extends cc.Component {
 
         let x = this.orbitCenter.x + (Math.cos(this.time)*this.orbitRadius);
         let y = this.orbitCenter.y + (Math.sin(this.time)*this.orbitRadius);
-        
+
         this.node.position = new cc.Vec2(x,y);
         // let p = this.node.convertToNodeSpaceAR(this.orbitCenter);
 
@@ -87,7 +87,7 @@ export class Planet extends cc.Component {
         // console.log("rotation", this.node.angle);
 
         // console.log("this.time:", this.time, this.node.position);
-        
+
       }
 
     }

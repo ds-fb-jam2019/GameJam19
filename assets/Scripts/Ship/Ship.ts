@@ -54,6 +54,9 @@ export class Ship extends cc.Component {
     @property([cc.AudioSource])
     public terraform_sound:cc.AudioSource[] = [];
 
+    @property(cc.Node)
+    public launchTuto:cc.Node = null;
+
     private _activeLaunching:boolean = false;
     private _traveling: boolean = false;
     private _orbiting: boolean = false;
@@ -98,8 +101,11 @@ private count:number = 0;
       }
 
       if(this._activeLaunching) {
+
+        
         this.showPowerBubble();
         if(this._lm.isLaunching == false) {
+          this.launchTuto.active = false;
           this.nodeDirection.active = false;
           this.gfx.clear();
           console.log("Launch!")
@@ -114,6 +120,7 @@ private count:number = 0;
 
       if (this.planet) {
         if(!this._orbiting) {
+          this.launchTuto.active = true;
           this._orbiting = true;
           if(this.menuControl)
           this.menuControl.createOrbit(0);
@@ -325,6 +332,7 @@ private count:number = 0;
           if (station.fuel < fuelRecharge) {
             fuelRecharge = station.fuel;
           }
+
           station.updateFuel();
           station.fuel -= fuelRecharge;
           this.fuel += fuelRecharge;

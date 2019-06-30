@@ -24,8 +24,8 @@ export default class PlanetAnim extends cc.Component {
       this.animation = this.getComponent(cc.Animation);
       if (this.animation) {
         let timeseed = Math.random()*240;
-        this.animation.play("idle", timeseed);
-        console.log("Randomizing animation", timeseed);
+        // this.animation.play("idle", timeseed);
+        // console.log("Randomizing animation", timeseed);
       }
     }
 

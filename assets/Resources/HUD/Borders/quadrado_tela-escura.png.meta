@@ -1,13 +1,14 @@
 {
-  "ver": "2.2.0",
+  "ver": "2.3.0",
   "uuid": "55bc873f-3af3-442f-8679-2c3f1f74a55c",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
   "premultiplyAlpha": false,
+  "platformSettings": {},
   "subMetas": {
     "quadrado_tela-escura": {
-      "ver": "1.0.3",
+      "ver": "1.0.4",
       "uuid": "e0277ee2-cb7c-4a94-b380-d300913d9ec4",
       "rawTextureUuid": "55bc873f-3af3-442f-8679-2c3f1f74a55c",
       "trimType": "auto",

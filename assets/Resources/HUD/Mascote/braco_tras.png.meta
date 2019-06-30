@@ -1,13 +1,14 @@
 {
-  "ver": "2.2.0",
+  "ver": "2.3.0",
   "uuid": "a3ef6c84-afc8-49ae-9ed6-1a2eb1ab2269",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
   "premultiplyAlpha": false,
+  "platformSettings": {},
   "subMetas": {
     "braco_tras": {
-      "ver": "1.0.3",
+      "ver": "1.0.4",
       "uuid": "0f18e263-a4c4-4139-a6f2-2a683c40ecb9",
       "rawTextureUuid": "a3ef6c84-afc8-49ae-9ed6-1a2eb1ab2269",
       "trimType": "auto",

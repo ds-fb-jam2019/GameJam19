@@ -1,13 +1,14 @@
 {
-  "ver": "2.2.0",
+  "ver": "2.3.0",
   "uuid": "fca0223f-1b4e-4815-87e5-01aa242bcff7",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
   "premultiplyAlpha": false,
+  "platformSettings": {},
   "subMetas": {
     "icone_combustivel": {
-      "ver": "1.0.3",
+      "ver": "1.0.4",
       "uuid": "6026c1c1-7527-4d04-b7aa-802c6deb83d5",
       "rawTextureUuid": "fca0223f-1b4e-4815-87e5-01aa242bcff7",
       "trimType": "auto",

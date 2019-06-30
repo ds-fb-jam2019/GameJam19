@@ -20,6 +20,8 @@ export class ChunkGenerator extends cc.Component {
   public planetBase:cc.Prefab = null;
   @property(cc.Prefab)
   public stationBase:cc.Prefab = null;
+  @property()
+  public spawnRadius:number = 1;
 
 
   /* Planet gen props */
@@ -73,17 +75,17 @@ export class ChunkGenerator extends cc.Component {
 
   chunksForPosition(x, y) {
 
-    let distance = Math.sqrt(x*x+y*y);
-    if (distance < this._maxDistance) return;
-    this._maxDistance = distance;
+    // let distance = Math.sqrt(x*x+y*y);
+    // if (distance < this._maxDistance) return;
+    // this._maxDistance = distance;
 
 
-    let idxX = Math.floor((x-this.offset.x)/this.screenW);
-    let idxY = Math.floor((y-this.offset.y)/this.screenH);
+    let idxX = Math.floor((x-this.offset.x)/this.screenW)+1;
+    let idxY = Math.floor((y-this.offset.y)/this.screenH)+1;
 
     let activeChunks:string[] = [];
-    for(let i = idxX-1; i<=idxX+1; ++i) {
-      for(let j = idxX-1; j<=idxX+1; ++j) {
+    for(let i = idxX-this.spawnRadius; i<=idxX+this.spawnRadius; ++i) {
+      for(let j = idxY-this.spawnRadius; j<=idxY+this.spawnRadius; ++j) {
         let chunkLabel = i+"_"+j;
         activeChunks.push(chunkLabel);
         if (!this.chunks[chunkLabel]) {
@@ -96,9 +98,11 @@ export class ChunkGenerator extends cc.Component {
 
     for(let atr in this.chunks) {
       if (activeChunks.indexOf(atr) == -1 ){
+        // console.log("removendo o chunk:"+atr);
         this.removePlanets(this.chunks[atr] as Planet[]);
         this.removePlanets(this.stations[atr] as Planet[]);
         delete this.chunks[atr];
+        delete this.stations[atr];
       }
     }
 
@@ -123,19 +127,18 @@ export class ChunkGenerator extends cc.Component {
     let planet = node.getComponent(Planet);
     let orbitCenter = new cc.Vec2();
 
-    orbitCenter.x = this.randRange(this.screenW*x, this.screenW*(x+1)) - this.offset.x;
-    orbitCenter.y = this.randRange(this.screenH*y, this.screenH*(y+1)) - this.offset.y;
+    orbitCenter.x = this.randRangef(this.screenW*x, this.screenW*(x+1)) - this.offset.x;
+    orbitCenter.y = this.randRangef(this.screenH*y, this.screenH*(y+1)) - this.offset.y;
     
     planet.orbitCenter = orbitCenter;
 
-    planet.radius = this.randRange(this.minPlanetsRadius, this.maxPlanetsRadius);
-    planet.orbitRadius = this.randRange(this.minPlanetOrbit, this.maxPlanetOrbit);
+    planet.radius = this.randRangef(this.minPlanetsRadius, this.maxPlanetsRadius);
+    planet.orbitRadius = this.randRangef(this.minPlanetOrbit, this.maxPlanetOrbit);
     planet.speedMod = this.randRangef(this.minPlanetsSpeedMod, this.maxPlanetsSpeedMod);
 
     // console.log("Gerando raio: ", planet.radius);
 
-    node.scale = (planet.radius/this.maxPlanetsRadius)/2.5;
-
+    planet.fixScale();
     node.parent = this.node;
 
     return planet;
@@ -144,8 +147,20 @@ export class ChunkGenerator extends cc.Component {
   removePlanets(planets:Planet[]) {
     planets.forEach(
       (planet) => {
-        planet.destroy();
+        if(planet.orbitGfx !=null) {
+          planet.orbitGfx.node.destroy();
+        }
+        planet.node.destroy();
       })
+  }
+
+  removePlanet(planet:Planet) {
+    for(let chunk in this.chunks) {
+      let idx = this.chunks[chunk].indexOf(planet);
+      if (idx != -1) {
+        this.chunks[chunk].splice(idx,1);
+      }
+    }
   }
 
   getAllPlanets():Planet[] {
@@ -159,7 +174,7 @@ export class ChunkGenerator extends cc.Component {
   getAllStations():Planet[] {
     let planets = [];
     for(let chunk in this.stations) {
-      planets = planets.concat(this.chunks[chunk]);
+      planets = planets.concat(this.stations[chunk]);
     }
     return planets;
   }
@@ -172,7 +187,7 @@ export class ChunkGenerator extends cc.Component {
     
 
     if (chance < this.stationSpawnChance) {
-      // console.log("Station created");
+      console.log("Station created");
       newStations.push(this.createStation(idxX, idxY));
     }
 

@@ -13,8 +13,8 @@ const {ccclass, property} = cc._decorator;
 @ccclass
 export class LaunchManager extends cc.Component {
 
-    @property(cc.Label)
-    label: cc.Label = null;
+    @property(cc.Camera)
+    camera: cc.Camera = null;
 
     @property(cc.Vec2)
     public touchStartPoint: cc.Vec2 = null;

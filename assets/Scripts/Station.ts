@@ -11,22 +11,25 @@
 const {ccclass, property} = cc._decorator;
 
 @ccclass
-export default class PlanetAnim extends cc.Component {
+export class Station extends cc.Component {
 
+    @property()
+    fuel:number = 100;
 
-  private animation: cc.Animation = null;
+    @property(cc.Node)
+    fuelBar:cc.Node = null;
+
 
     // LIFE-CYCLE CALLBACKS:
 
     // onLoad () {}
 
     start () {
-      this.animation = this.getComponent(cc.Animation);
-      if (this.animation) {
-        let timeseed = Math.random()*240;
-        // this.animation.play("idle", timeseed);
-        // console.log("Randomizing animation", timeseed);
-      }
+
+    }
+
+    updateFuel() {
+      this.fuelBar.scaleY = (this.fuel/100) * 2.8;
     }
 
     // update (dt) {}

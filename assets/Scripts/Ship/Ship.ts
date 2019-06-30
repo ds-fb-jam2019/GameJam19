@@ -13,26 +13,54 @@ const {ccclass, property} = cc._decorator;
 import {LaunchManager} from './LaunchManager'
 import {ChunkGenerator} from '../chunkGen/ChunkGenerator'
 import {Planet} from '../Planet'
+import {Station} from '../Station'
+import {MenuControl} from '../Menu/MenuControl'
 
 
 @ccclass
-export default class Ship extends cc.Component {
+export class Ship extends cc.Component {
 
     @property()
-    public fuel:number = 100;
+    public planet:Planet = null;
+
+    @property()
+    public orbitRadiusOffset:number = 20;
+
+
+    @property()
+    public fuelTransferRate:number = 25;
+    @property()
+    public maxFuel:number = 300;
+    public fuel:number = 300;
+
+    @property()
+    public imuneTime:number = 1;
+    public currentImuneTime:number = 0;
 
     @property([Planet])
     public planetTest: Planet[] = [];
 
+    @property(MenuControl)
+    public menuControl: MenuControl = null;
+
     private _activeLaunching:boolean = false;
     private _traveling: boolean = false;
+    private _orbiting: boolean = false;
 
     private _lm:LaunchManager;
     private _canvas: cc.Canvas;
     private _launchPower: number;
     private _launchAcc: cc.Vec2;
     private _chunks:ChunkGenerator;
+    private _time:number = 0;
+    private orbitDirection:number = 0;
+    private orbitOffset:number = 0;
 
+    private _maxTravelDistance:number = 0;
+    private _planetCount:number = 0;
+
+
+private count:number = 0;
     // private _planetTest: Planet;
 
 
@@ -41,9 +69,13 @@ export default class Ship extends cc.Component {
     // onLoad () {}
 
     start () {
-      this._lm = cc.find("Canvas/LaunchManager").getComponent("LaunchManager");
+      this._lm = cc.find("Canvas/Main Camera/LaunchManager").getComponent("LaunchManager");
       this._chunks = cc.find("Canvas").getComponent("ChunkGenerator");
       this._canvas = cc.Canvas.instance;
+      this.menuControl.setDistancia(0);
+      this.menuControl.setPlanetas(0);
+      this.menuControl.setGalaxias(0);
+      this.fuel = this.maxFuel;
       // this._planetTest = this.planetTest.getComponent("Planet");
     }
 
@@ -62,117 +94,197 @@ export default class Ship extends cc.Component {
       if(this._traveling) {
         this.calcTravel(dt);
       }
+
+      if (this.planet) {
+        if(!this._orbiting) {
+          this._orbiting = true;
+          if(this.menuControl)
+          this.menuControl.createOrbit(0);
+        }
+        this.orbitPlanet(dt);
+      }
     }
 
     launch() {
       this._traveling = true;
+      this.currentImuneTime = 0;
+      if (this.planet) {
+        // this.planet.node.destroy();
+        this._orbiting = false;
+      }
+      this.menuControl.traveling = true;
+      this.menuControl.setStatus("VIAJANDO");
+      this.planet = null;
       this.calcLaunchVector();
     }
 
     calcLaunchVector() {
       let result = this._lm.touchLastPoint.sub(this._lm.touchStartPoint);
       let screenSize = this._canvas.designResolution.height;
-      this._launchPower = result.mag()/screenSize;
+      let powerPercent = ( result.mag() / (screenSize * 0.8)) * 100;
+      if (powerPercent>100) {
+        powerPercent = 100;
+      }
+      if (powerPercent > this.fuel) {
+        powerPercent = this.fuel;
+      }
+      this._launchPower = powerPercent * 6;
+      this.fuel -= powerPercent;
+      console.log("PowerPercent:", powerPercent);
+      console.log("Fuel:", this.fuel);
+      this.menuControl.setCombustivel(this.fuel/this.maxFuel);
 
-      this._launchAcc = new cc.Vec2(0, this._launchPower);
+
+      let rad = (this.node.angle+90) *Math.PI/180;
+
+      this._launchAcc = new cc.Vec2(
+        Math.cos(rad)*this._launchPower,
+        Math.sin(rad)*this._launchPower);
 
       console.log("Power", this._launchPower);
+      console.log("Launch vec:", this._launchAcc);
     }
 
     calcTravel(dt) {
-      let atraction = this.getPlanetsAtraction();
+      let atraction = cc.Vec2.ZERO;
+      if (this.currentImuneTime > this.imuneTime ) {
+        atraction = this.getPlanetsAtraction();
+        this.gatherFuel(dt);
+      } else {
+        this.currentImuneTime += dt;
+      }
+      // Entrou numa orbita
+      if (this.planet) {
 
+        this._traveling = false;
+        this.menuControl.traveling = false;
+        this.menuControl.setStatus("PARADO");
+        return;
+
+      }
 
       let pos = this.node.position;
-      let angle = (this.node.angle+90) * (Math.PI /180);
-      let displacement = dt * this._launchPower * 100;
-      // let x = pos.x + atraction.x + Math.cos(angle) * displacement;
-      // let y = pos.y + atraction.y + Math.sin(angle) * displacement;
+      // let angle = (this.node.angle+90) * (Math.PI /180);
+      // let displacement = dt * this._launchPower * 1000;
+
       this._launchAcc.x -= atraction.x;
       this._launchAcc.y -= atraction.y;
 
-      // console.log("atraction", atraction);
-      // console.log("LACC", this._launchAcc);
       let x = pos.x + (this._launchAcc.x * dt);
       let y = pos.y + (this._launchAcc.y * dt);
 
       let newPos = new cc.Vec2(x,y);
+      let travelDistance = newPos.mag();
+      if (travelDistance > this._maxTravelDistance) {
+        this._maxTravelDistance = travelDistance;
+        this.menuControl.setDistancia(Math.floor(this._maxTravelDistance));
+      }
 
       this.node.position = new cc.Vec2(x,y);
-      this._chunks.chunksForPosition(x, y);
-      // this._chunks.chunksForPosition(x,y);
+      if (this.count++ > 60) {
+        this._chunks.chunksForPosition(x, y);
+        this.count = 0;
+      }
 
       let diff = pos.sub(newPos);
-      // console.log("diff", diff.mag());
 
-      // angle = Math.acos( cc.v2(pos).dot(newPos) / (pos.mag()*newPos.mag()));
-      // console.log("angle", angle);
-
-      angle = Math.atan2(newPos.y - pos.y, newPos.x - pos.x) * 180 / Math.PI;
-      // console.log("angle", angle);
+      let angle = Math.atan2(newPos.y - pos.y, newPos.x - pos.x) * 180 / Math.PI;
 
       let newAngle = angle - 90;// * 180/Math.PI;
-      this.fuel -= 10*dt;
+      // this.fuel -= 10*dt;
 
       this.node.angle = newAngle;
 
-      // console.log("newAngle", this.node.angle);
-
-      // this.node.lookAt(new cc.Vec3(atraction.x, atraction.y, 0), cc.Vec3.UP);
-
-      // if(this.fuel <= 0) {
-      //   this._traveling = false;
-      // }
-
-
-      // console.log("displacement", displacement);
-      // console.log("angle", Math.sin(angle));
-      // console.log("fuel", this.fuel);
-      // console.log("position", this.node.position.toString());
     }
 
     getPlanetsAtraction() {
       let resultAtraction = new cc.Vec2(0,0);
-      let planets = this._chunks.getAllPlanets();
+      let planets = this.planetTest;
+      if (this.planetTest.length == 0) {
+        planets = this._chunks.getAllPlanets();
+      }
 
-      // let planets:Planet[] = []; planets.push(this._planetTest);
       planets.forEach((p:Planet) => {
-        let atractionRadius = p.radius * 10;
+        let atractionRadius = 300; //p.radius * 5;
         let diff = this.node.position.sub(p.node.position);
         let distance = diff.mag();
 
-        // console.log("planet pos x", p.node.position);
-        // console.log("ship pos x", this.node.position);
-        // console.log("planet pos y", p.node.position.y);
+        if(!this.planet) {
+          if (distance < p.radius ) {
 
-        // console.log("distance", distance);
-        // console.log("attractionRadius", atractionRadius);
+            this._time = 0;
+            this.orbitDirection = Math.random()<0.5?-1:1;
+            this.orbitOffset = Math.random()*360;
+            this.planet = p;
 
-        if(distance < atractionRadius && distance > p.radius) {
-          // console.log("distance", distance);
-          let angle = cc.v2(this.node.position).angle(p.node.position) + Math.PI/2;
-          // let displacement = 1/(distance) * 50;
-          // let displacement = 1/distanc;)
+            if (this.fuel == 0) {
+              //GameOver;
+              console.log("gameObver");
+            }
 
-          // console.log("angle", angle);
-          // console.log("dif", diff);
-          // console.log("displacement", displacement);
+            if (this.planetTest.length == 0) {
+              this._chunks.removePlanet(p);
+            } else {
+              this.planetTest.splice(this.planetTest.indexOf(this.planet),1);
+            }
 
-          // if (diff.x < 1 && diff.x > -1) {
-          //   if (diff.x<0) diff.x = -1;
-          //   else diff.x = 1
-          // }
-          resultAtraction.x += (p.radius/100) * diff.x/ distance;
-          ;//(1*p.radius)/(diff.x*diff.x);
-          resultAtraction.y += (p.radius/100) * diff.y/ distance;//(1*p.radius)/(diff.y*diff.y);
-          // console.log("Result Atraction x", resultAtraction);
-          // console.log("sin Ang", Math.sin(angle));
-          // console.log("Result Atraction x", resultAtraction.y);
+          }
+
+          if(distance < atractionRadius) {
+            // let angle = cc.v2(this.node.position).angle(p.node.position) + Math.PI/2;
+            resultAtraction.x += (p.radius/100) * diff.x/ distance;
+            resultAtraction.y += (p.radius/100) * diff.y/ distance;
+          }
+
+          if (!p.terraformed && distance < 250) {
+            p.terraformed = true;
+            this.menuControl.setPlanetas(++this._planetCount);
+          }
         }
       });
 
-
-      // console.log("Result Atraction", resultAtraction);
       return resultAtraction;
+    }
+
+    orbitPlanet(dt) {
+      this._time += dt;
+      let x = this.planet.node.position.x + (Math.cos((this._time+this.orbitOffset) * this.orbitDirection) * this.planet.radius )
+      let y = this.planet.node.position.y + (Math.sin((this._time+this.orbitOffset) * this.orbitDirection) * this.planet.radius )
+
+      let angle = Math.atan2(this.planet.node.position.y - y, this.planet.node.position.x - x) * 180 / Math.PI;
+
+      this.node.angle = angle+ (this.orbitDirection<0?0:180);
+      // this.node.angle = 0;
+
+      // this.node.position = ;
+      if (this._time<1) {
+        this.node.position = this.node.position.lerp(new cc.Vec2(x, y), (5 + this._time * 10)*dt);
+      } else {
+        this.node.position = new cc.Vec2(x, y);
+      }
+    }
+
+    gatherFuel(dt) {
+      let stationsP:Planet[] = this._chunks.getAllStations();
+      stationsP.forEach((p) => {
+        
+        let dist = p.node.position.sub(this.node.position).mag();
+        if (dist < 250) {
+          
+          let station = p.getComponent(Station);
+          if (station.fuel <= 0) return;
+
+          let fuelRecharge = this.fuelTransferRate*dt;
+          if (station.fuel < fuelRecharge) {
+            fuelRecharge = station.fuel;
+          }
+          station.updateFuel();
+          station.fuel -= fuelRecharge;
+          this.fuel += fuelRecharge;
+          this.menuControl.setCombustivel(this.fuel/this.maxFuel);
+        }
+
+
+      });
     }
 }

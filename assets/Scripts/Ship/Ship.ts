@@ -80,7 +80,7 @@ private count:number = 0;
     launch() {
       this._traveling = true;
       if (this.planet) {
-        this.planet.node.destroy();
+        // this.planet.node.destroy();
       }
       this.planet = null;
       this.calcLaunchVector();

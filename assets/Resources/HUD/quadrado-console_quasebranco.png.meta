@@ -1,13 +1,14 @@
 {
-  "ver": "2.2.0",
+  "ver": "2.3.0",
   "uuid": "c72b7e47-8f76-4771-b292-fb0a72fe40aa",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
   "premultiplyAlpha": false,
+  "platformSettings": {},
   "subMetas": {
     "quadrado-console_quasebranco": {
-      "ver": "1.0.3",
+      "ver": "1.0.4",
       "uuid": "04639065-7812-44f3-af35-440bf8c573be",
       "rawTextureUuid": "c72b7e47-8f76-4771-b292-fb0a72fe40aa",
       "trimType": "auto",

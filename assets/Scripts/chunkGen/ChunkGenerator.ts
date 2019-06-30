@@ -184,7 +184,7 @@ export class ChunkGenerator extends cc.Component {
     
 
     if (chance < this.stationSpawnChance) {
-      // console.log("Station created");
+      console.log("Station created");
       newStations.push(this.createStation(idxX, idxY));
     }
 

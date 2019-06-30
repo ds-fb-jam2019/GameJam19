@@ -1,14 +1,13 @@
 {
-  "ver": "2.3.0",
+  "ver": "2.2.0",
   "uuid": "f0044657-21fe-4fde-b5e7-b1a2037d83f6",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
   "premultiplyAlpha": false,
-  "platformSettings": {},
   "subMetas": {
     "tela_overlay": {
-      "ver": "1.0.4",
+      "ver": "1.0.3",
       "uuid": "a3c3e8d8-618c-4224-b295-211d610e6458",
       "rawTextureUuid": "f0044657-21fe-4fde-b5e7-b1a2037d83f6",
       "trimType": "auto",

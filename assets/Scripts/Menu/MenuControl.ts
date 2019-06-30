@@ -33,7 +33,7 @@ export class MenuControl extends cc.Component {
     @property(cc.Animation)
     public bigRoboAnim:cc.Animation = null;
 
-    public traveling: boolean = true;
+    public traveling: boolean = false;
     planetCounter: number = 0;
     travelingDistance: number = 1;
     reset: number = 0;

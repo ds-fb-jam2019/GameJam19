@@ -78,8 +78,8 @@ export class ChunkGenerator extends cc.Component {
     this._maxDistance = distance;
 
 
-    let idxX = (x-this.offset.x)/this.screenW;
-    let idxY = (y-this.offset.y)/this.screenH;
+    let idxX = Math.floor((x-this.offset.x)/this.screenW);
+    let idxY = Math.floor((y-this.offset.y)/this.screenH);
 
     let activeChunks:string[] = [];
     for(let i = idxX-1; i<=idxX+1; ++i) {
@@ -87,6 +87,7 @@ export class ChunkGenerator extends cc.Component {
         let chunkLabel = i+"_"+j;
         activeChunks.push(chunkLabel);
         if (!this.chunks[chunkLabel]) {
+          // console.log("Gerando planetas para: ", chunkLabel);
           this.chunks[chunkLabel] = this.generatePlanets(i, j);
           this.stations[chunkLabel] = this.generateStations(i, j);
         }
